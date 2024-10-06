@@ -42,7 +42,7 @@ export interface ThemeColors {
 }
 
 export const colors: ThemeColors = {
-  primary: "#592C00",
+  primary: "#1D52FA",
   text: "black",
 
   background: "#F3F2F7",
@@ -51,7 +51,7 @@ export const colors: ThemeColors = {
 };
 
 export const lightColors: ThemeColors = {
-  primary: "#592C00",
+  primary: "#1D52FA",
   text: "black",
   background: "#F3F2F7",
   cardBackground: "white",
@@ -59,9 +59,8 @@ export const lightColors: ThemeColors = {
 };
 
 export const darkColors: ThemeColors = {
-  primary: "#592C00",
+  primary: "#1D52FA",
   text: "white",
-
   background: "#090909",
   cardBackground: "#2d2d2d",
   buttonTextColor: "white",
@@ -106,6 +105,6 @@ export const globalStyless = StyleSheet.create({
   },
   btnPrimaryText: {
     // color: colors.text,
-    fontSize: 16,
+    fontSize: 18,
   },
 });

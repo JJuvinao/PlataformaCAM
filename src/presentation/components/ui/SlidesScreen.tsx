@@ -21,18 +21,18 @@ interface Slide {
 
 const items: Slide[] = [
   {
-    title: "Iglesia Virtual",
-    desc: "Accede a contenido espiritual, misas en línea y recursos para el crecimiento personal desde la comodidad de tu hogar.",
+    title: "Presentación de CAM",
+    desc: "Tempor sit cupidatat nostrud anim occaecat ea ipsum qui nisi. Est dolor commodo Lorem proident aliquip voluptate duis veniam aliquip fugiat. Cillum ut cillum anim ipsum dolore aute officia dolor minim commodo elit consequat. Est magna anim ut elit laborum enim ex occaecat pariatur deserunt.",
     img: require("../../../../assets/img/Logosimbolo-CAM.png"),
   },
   {
-    title: "Nulidad Matrimonial",
-    desc: "Explora el proceso de nulidad matrimonial y obtén información sobre los requisitos y procedimientos necesarios.",
+    title: "Instrucciones de Manejo",
+    desc: "Cupidatat eu fugiat in culpa non laboris et excepteur aliquip. Sint nostrud fugiat culpa sit fugiat dolor magna occaecat dolore. Fugiat consequat mollit sunt sunt voluptate adipisicing quis exercitation laborum anim pariatur non laboris nulla.",
     img: require("../../../../assets/img/Logosimbolo-CAM.png"),
   },
   {
-    title: "Temas de Citación",
-    desc: "Consulta citas importantes y eventos relacionados con la comunidad eclesiástica, y mantente informado sobre fechas clave.",
+    title: "Otros Temas",
+    desc: "Tempor sit cupidatat nostrud anim occaecat ea ipsum qui nisi. Est dolor commodo Lorem proident aliquip voluptate duis veniam aliquip fugiat. Cillum ut cillum anim ipsum dolore aute officia dolor minim commodo elit consequat. Est magna anim ut elit laborum enim ex occaecat pariatur deserunt.",
     img: require("../../../../assets/img/Logosimbolo-CAM.png"),
   },
 ];
@@ -90,7 +90,7 @@ export const SlidesScreen = () => {
         />
       ) : (
         <Button
-          text="Siguiente"
+          text=" > > > "
           styles={{ position: "absolute", bottom: 60, left: 150, width: 100 }}
           onPress={() => scrollToSlide(currentSlideIndex + 1)}
         />
@@ -124,7 +124,7 @@ const SlideItem = ({ item }: SlideItemProps) => {
         }}
       />
 
-      <Text className="text-xl italic font-bold text-center text-primary">
+      <Text className="text-xl italic font-bold text-center text-textcolor">
         {title}
       </Text>
 

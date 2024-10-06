@@ -1,4 +1,11 @@
-import { Pressable, StyleProp, Text, View, ViewStyle } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleProp,
+  Text,
+  View,
+  ViewStyle,
+} from "react-native";
 
 import { colors, globalStyless } from "../../../config";
 
@@ -27,6 +34,7 @@ export const Button = ({ text, styles, onPress }: Props) => {
           globalStyless.btnPrimaryText,
           {
             color: colors.buttonTextColor,
+            fontStyle: "italic",
           },
         ]}
       >
