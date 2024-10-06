@@ -1,0 +1,22 @@
+import * as Yup from "yup";
+
+export const RegisterSchema = Yup.object().shape({
+  tipoDocumento: Yup.string().required("Tipo de documento es obligatorio"),
+  numeroDocumento: Yup.string().required("Número de documento es obligatorio"),
+  nombre: Yup.string().required("Nombre es obligatorio"),
+  apellidos: Yup.string().required("Apellidos son obligatorios"),
+  telefono: Yup.string().required("Teléfono es obligatorio"),
+  correo: Yup.string()
+    .email("Correo inválido")
+    .required("Correo es obligatorio"),
+  password: Yup.string().required("Contraseña es obligatoria"),
+});
+
+export const LoginSchema = Yup.object().shape({
+  correo: Yup.string()
+    .email("Correo inválido")
+    .required("Correo es obligatorio"),
+  password: Yup.string()
+    .required("Contraseña es obligatoria")
+    .min(8, "La contraseña debe tener al menos 8 caracteres"),
+});

@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { RolUsuario, UserRegisro } from "../domain/entities/user";
 import { crearUsuario } from "./user.action";
+import { FirebaseError } from "firebase/app";
 
 const auth = getAuth();
 

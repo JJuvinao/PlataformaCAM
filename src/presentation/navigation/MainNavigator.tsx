@@ -9,7 +9,7 @@ const MainNavigator = () => {
 
   return (
     <Stack.Navigator>
-      {user?.roles === "ADMIN" ? (
+      {user?.roles === "CLIENTE" ? (
         <Stack.Screen
           name="Admin"
           component={StackNavigator}

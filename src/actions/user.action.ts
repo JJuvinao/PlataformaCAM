@@ -5,30 +5,17 @@ import {
   UserCredential,
 } from "firebase/auth";
 import {
-  getFirestore,
   collection,
-  Firestore,
   DocumentData,
   doc,
   setDoc,
   updateDoc,
-  deleteDoc,
   DocumentSnapshot,
   CollectionReference,
-  query,
-  orderBy,
-  onSnapshot,
-  QuerySnapshot,
-  getDocs,
   getDoc,
-  addDoc,
 } from "firebase/firestore";
 import { db } from "../config/firebase/app";
 import { User, UserRegisro } from "../domain/entities/user";
-const usuariosRef: CollectionReference<DocumentData> = collection(
-  db,
-  "usuarios"
-);
 
 export async function crearUsuario(usuario: UserRegisro): Promise<void> {
   try {
