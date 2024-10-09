@@ -5,6 +5,7 @@ import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { StyleSheet, View } from "react-native";
 import { Dimensions } from "react-native";
+import StackNavigator from "./StackNavigator";
 
 const { width } = Dimensions.get("window");
 
@@ -22,9 +23,19 @@ function BottonNavigation() {
           backgroundColor: "",
         }}
       >
+        {/* <Tab.Screen
+          name="Stack"
+          component={HomeScreen}
+          options={{
+            tabBarLabel: "Inicio",
+            tabBarIcon: ({ color }) => (
+              <Entypo name="home" size={24} color="white" />
+            ),
+          }}
+        /> */}
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={StackNavigator}
           options={{
             tabBarLabel: "Inicio",
             tabBarIcon: ({ color }) => (
