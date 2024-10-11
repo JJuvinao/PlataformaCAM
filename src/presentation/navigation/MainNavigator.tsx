@@ -3,6 +3,7 @@ import AuthNavigator from "./AuthNavigator";
 import { useAuthStore } from "../store/useAuthStore";
 import StackNavigator from "./StackNavigator";
 import BottonNavigation from "./BottoNavigation";
+import DrawerNavigation from "./DrawerNavigation";
 
 const Stack = createStackNavigator();
 const MainNavigator = () => {
@@ -13,7 +14,7 @@ const MainNavigator = () => {
       {user?.roles === "CLIENTE" ? (
         <Stack.Screen
           name="Admin"
-          component={BottonNavigation}
+          component={DrawerNavigation}
           options={{ headerShown: false }}
         />
       ) : (

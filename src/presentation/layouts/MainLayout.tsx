@@ -8,7 +8,6 @@ import {
   StyleProp,
   ViewStyle,
 } from "react-native";
-import { Dimensions } from "react-native";
 
 interface Props {
   children: React.ReactNode;

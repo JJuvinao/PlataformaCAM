@@ -8,6 +8,7 @@ import { CapturePresionArterialScreen } from "../screens/captureResults/CaptureP
 import { CaptureGlicemiaScreen } from "../screens/captureResults/CaptureGlicemiaScreen";
 import { CaptureCoprologicoScreen } from "../screens/captureResults/CaptureCoprologicoScreen";
 import { CaptureUroanalisisScreen } from "../screens/captureResults/CaptureUroanalisisScreen";
+import DrawerNavigation from "./DrawerNavigation";
 
 export type RootStackParamList = {
   HomeNavigator: undefined;
@@ -20,6 +21,7 @@ export type RootStackParamList = {
   CaptureGlicemiaScreen: undefined;
   CaptureCoprologicoScreen: undefined;
   CaptureUroanalisisScreen: undefined;
+  HomeDraweNavigator: undefined;
 };
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -27,6 +29,7 @@ function StackNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {/* <Stack.Screen name="Bottontab" component={BottonNavigation} /> */}
+      {/* <Stack.Screen name="HomeDraweNavigator" component={DrawerNavigation} /> */}
       <Stack.Screen name="HomeNavigator" component={HomeScreen} />
       <Stack.Screen name="SlidesScreen" component={SlidesScreen} />
       <Stack.Screen name="HomeCaptureResults" component={HomeCaptureResults} />
