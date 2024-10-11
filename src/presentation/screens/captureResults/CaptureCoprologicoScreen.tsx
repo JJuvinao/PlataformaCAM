@@ -15,7 +15,9 @@ export const CaptureCoprologicoScreen = () => {
         paddingHorizontal: width * 0.05,
       }}
     >
-      <Text className="text-lg font-bold text-textcolor">Coprológico</Text>
+      <Text className="text-xl italic font-bold text-textcolor">
+        Coprológico
+      </Text>
       <View className="w-full p-4 my-2 mb-5 bg-white rounded-3xl">
         <Text className="text-base text-gray-600">Color Heces</Text>
         <TextInput

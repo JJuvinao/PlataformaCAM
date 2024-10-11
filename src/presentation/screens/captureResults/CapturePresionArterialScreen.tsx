@@ -15,10 +15,10 @@ export const CapturePresionArterialScreen = () => {
         paddingHorizontal: width * 0.05,
       }}
     >
-      <Text className="text-lg italic font-bold text-textcolor">
+      <Text className="text-xl italic font-bold text-textcolor">
         Presión Arterial
       </Text>
-      <View className="w-full p-4 mb-5 bg-white rounded-3xl">
+      <View className="w-full p-4 my-2 mb-5 bg-white rounded-3xl">
         <Text className="text-base text-gray-600 ">Sistólica</Text>
         <TextInput
           mode="outlined"
