@@ -1,4 +1,3 @@
-import React from "react";
 import { Text, useWindowDimensions, View } from "react-native";
 import { MainLayout } from "../../layouts/MainLayout";
 import { TextInput } from "react-native-paper";
@@ -22,31 +21,34 @@ export const CaptureCoprologicoScreen = () => {
         <Text className="text-base text-gray-600">Color Heces</Text>
         <TextInput
           mode="outlined"
-          placeholder="color heces"
+          placeholder="color heces ej: marrón"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
-          keyboardType="numeric"
+          keyboardType="default"
+          autoCapitalize="none"
           onChangeText={(color) => actualizarCoprologico({ colorHeces: color })}
           value={coprologico.colorHeces}
         />
         <Text className="my-2 text-base text-gray-600">Consistencia</Text>
         <TextInput
           mode="outlined"
-          placeholder="consistencia"
+          placeholder="consistencia ej: normal"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
-          keyboardType="numeric"
+          keyboardType="default"
+          autoCapitalize="none"
           onChangeText={(consistencia) =>
             actualizarCoprologico({ consistencia: consistencia })
           }
           value={coprologico.consistencia}
         />
+
         <Text className="my-2 text-base text-gray-600">PH</Text>
         <TextInput
           mode="outlined"
-          placeholder="ph"
+          placeholder="ph fecal ej: 1"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
@@ -54,29 +56,33 @@ export const CaptureCoprologicoScreen = () => {
           onChangeText={(ph) => actualizarCoprologico({ ph: ph })}
           value={coprologico.ph}
         />
-        <Text className="my-2 text-base text-gray-600">Sangre Oculta</Text>
+        <Text className="my-2 text-base text-gray-600">
+          Sangre Oculta (positivo - negativo)
+        </Text>
         <TextInput
           mode="outlined"
-          placeholder="sangre oculta"
+          placeholder="sangre oculta ej: positivo"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
-          keyboardType="numeric"
+          keyboardType="default"
+          autoCapitalize="none"
           onChangeText={(sangreOculta) =>
             actualizarCoprologico({ sangreOculta: sangreOculta })
           }
           value={coprologico.sangreOculta}
         />
         <Text className="my-2 text-base text-gray-600">
-          Parasitos y huevos de parasitos
+          Huevos y parasitos en las heces (positivo - negativo)
         </Text>
         <TextInput
           mode="outlined"
-          placeholder="parasitos"
+          placeholder="parasitos ej: negativo"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
-          keyboardType="numeric"
+          keyboardType="default"
+          autoCapitalize="none"
           onChangeText={(parasitos) =>
             actualizarCoprologico({ parasitos: parasitos })
           }
@@ -85,7 +91,7 @@ export const CaptureCoprologicoScreen = () => {
         <Text className="my-2 text-base text-gray-600">Leucocitos</Text>
         <TextInput
           mode="outlined"
-          placeholder="leucocitos"
+          placeholder="valor ej: 1"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
@@ -98,7 +104,7 @@ export const CaptureCoprologicoScreen = () => {
         <Text className="my-2 text-base text-gray-600">Eritrocitos</Text>
         <TextInput
           mode="outlined"
-          placeholder="eritrocitos"
+          placeholder="valor ej: 1"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
@@ -108,14 +114,17 @@ export const CaptureCoprologicoScreen = () => {
           }
           value={coprologico.eritrocitos}
         />
-        <Text className="my-2 text-base text-gray-600">Grasa Fecal</Text>
+        <Text className="my-2 text-base text-gray-600">
+          Grasa Fecal (positiva - negativa)
+        </Text>
         <TextInput
           mode="outlined"
-          placeholder="grasaFecal"
+          placeholder="grasa ej: positiva "
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
-          keyboardType="numeric"
+          keyboardType="default"
+          autoCapitalize="none"
           onChangeText={(grasaFecal) =>
             actualizarCoprologico({ grasaFecal: grasaFecal })
           }

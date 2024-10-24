@@ -17,10 +17,10 @@ export const CaptureHemogramaScreen = () => {
     >
       <Text className="text-xl italic font-bold text-textcolor">Hemograma</Text>
       <View className="w-full p-4 my-2 mb-5 bg-white rounded-3xl">
-        <Text className="text-base text-gray-600 ">HB</Text>
+        <Text className="text-base text-gray-600 ">Hemoglobina (Hb)</Text>
         <TextInput
           mode="outlined"
-          placeholder="hb"
+          placeholder="rango Ej: 10"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
@@ -28,10 +28,10 @@ export const CaptureHemogramaScreen = () => {
           onChangeText={(hb) => actualizarHemograma({ hb: hb })}
           value={hemograma.hb}
         />
-        <Text className="my-2 text-base text-gray-600 ">Hematocritos</Text>
+        <Text className="my-2 text-base text-gray-600 ">Hematocrito (%)</Text>
         <TextInput
           mode="outlined"
-          placeholder="hematocritos"
+          placeholder="rango Ej: 36"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
@@ -41,10 +41,37 @@ export const CaptureHemogramaScreen = () => {
           }
           value={hemograma.hematocrito}
         />
-        <Text className="my-2 text-base text-gray-600 ">Plaqueta</Text>
+        <Text className="my-2 text-base text-gray-600 ">Leucocitos (mm³)</Text>
         <TextInput
           mode="outlined"
-          placeholder="plaquetas"
+          placeholder="rango Ej: 4,000"
+          className="mt-2 rounded-full"
+          outlineColor="#0093FB"
+          activeOutlineColor="#0093FB"
+          keyboardType="decimal-pad"
+          onChangeText={(leucocitos) =>
+            actualizarHemograma({ leucocitos: leucocitos })
+          }
+          value={hemograma.leucocitos}
+        />
+        <Text className="my-2 text-base text-gray-600 ">Neutrófilos (mm³)</Text>
+        <TextInput
+          mode="outlined"
+          placeholder="rango Ej: 2,000"
+          className="mt-2 rounded-full"
+          outlineColor="#0093FB"
+          activeOutlineColor="#0093FB"
+          keyboardType="numeric"
+          onChangeText={(neutrofilos) =>
+            actualizarHemograma({ neutrofilos: neutrofilos })
+          }
+          value={hemograma.neutrofilos}
+        />
+
+        <Text className="my-2 text-base text-gray-600 ">Plaqueta (mm³)</Text>
+        <TextInput
+          mode="outlined"
+          placeholder="rango Ej: 150,000"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
@@ -54,20 +81,22 @@ export const CaptureHemogramaScreen = () => {
           }
           value={hemograma.plaquetas}
         />
-        <Text className="my-2 text-base text-gray-600 ">Glóbulos Rojos</Text>
+        <Text className="my-2 text-base text-gray-600 ">
+          Glóbulos Rojos (millones/µL)
+        </Text>
         <TextInput
           mode="outlined"
-          placeholder="globulos rojos"
+          placeholder="rango Ej: 4.2"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
-          keyboardType="numeric"
+          keyboardType="decimal-pad"
           onChangeText={(globulosRojos) =>
             actualizarHemograma({ globulosRojos: globulosRojos })
           }
           value={hemograma.globulosRojos}
         />
-        <Text className="my-2 text-base text-gray-600 ">Calcio</Text>
+        {/* <Text className="my-2 text-base text-gray-600 ">Calcio</Text>
         <TextInput
           mode="outlined"
           placeholder="calcio"
@@ -77,20 +106,7 @@ export const CaptureHemogramaScreen = () => {
           keyboardType="numeric"
           onChangeText={(calcio) => actualizarHemograma({ calcio: calcio })}
           value={hemograma.calcio}
-        />
-        <Text className="my-2 text-base text-gray-600 ">Creatinina</Text>
-        <TextInput
-          mode="outlined"
-          placeholder="creatinina"
-          className="mt-2 rounded-full"
-          outlineColor="#0093FB"
-          activeOutlineColor="#0093FB"
-          keyboardType="numeric"
-          onChangeText={(creatinina) =>
-            actualizarHemograma({ creatinina: creatinina })
-          }
-          value={hemograma.creatinina}
-        />
+        /> */}
       </View>
       <View className="w-full p-4 mb-20 bg-white rounded-3xl">
         <Text className="my-2 text-2xl font-bold text-center text-textcolor">

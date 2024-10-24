@@ -1,8 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import AuthNavigator from "./AuthNavigator";
 import { useAuthStore } from "../store/useAuthStore";
-import StackNavigator from "./StackNavigator";
-import BottonNavigation from "./BottoNavigation";
 import DrawerNavigation from "./DrawerNavigation";
 
 const Stack = createStackNavigator();

@@ -1,12 +1,13 @@
 import React from "react";
 import { Text, useWindowDimensions, View } from "react-native";
 import { MainLayout } from "../../layouts/MainLayout";
-import { TextInput } from "react-native-paper";
 import { useExamenStore } from "../../store/useResultsStore";
+import { TextInput } from "react-native-paper";
 
-export const CaptureGlicemiaScreen = () => {
+export const CapturePerfilTiroideoScreen = () => {
   const { width } = useWindowDimensions();
-  const { glicemia, actualizarGlicemia } = useExamenStore();
+  const { perfiltiroideo, actualizarPerfilTiroideo } = useExamenStore();
+
   return (
     <MainLayout
       style={{
@@ -15,48 +16,44 @@ export const CaptureGlicemiaScreen = () => {
         paddingHorizontal: width * 0.05,
       }}
     >
-      <Text className="text-xl italic font-bold text-textcolor">Glicemia</Text>
+      <Text className="text-xl italic font-bold text-textcolor">
+        Perfil Tiroideo
+      </Text>
       <View className="w-full p-4 my-2 mb-5 bg-white rounded-3xl">
-        <Text className="text-base text-gray-600 ">Ayuno</Text>
+        <Text className="text-base text-gray-600 ">TSH</Text>
         <TextInput
           mode="outlined"
-          placeholder="sistolica ej: 70"
+          placeholder="tsh"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
           keyboardType="numeric"
-          onChangeText={(ayuno) => actualizarGlicemia({ ayuno: ayuno })}
-          value={glicemia.ayuno}
+          onChangeText={(tsh) => actualizarPerfilTiroideo({ tsh: tsh })}
+          value={perfiltiroideo.tsh}
         />
-        <Text className="text-base text-gray-600 ">Postprandial</Text>
+        <Text className="my-2 text-base text-gray-600 ">T3</Text>
         <TextInput
           mode="outlined"
-          placeholder="postprandial ej: 140"
+          placeholder="t3"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
           keyboardType="numeric"
-          onChangeText={(postprandial) =>
-            actualizarGlicemia({ postprandial: postprandial })
-          }
-          value={glicemia.postprandial}
+          onChangeText={(t3) => actualizarPerfilTiroideo({ t3: t3 })}
+          value={perfiltiroideo.t3}
         />
-        <Text className="text-base text-gray-600 ">
-          Hemoglobina Glicosilada
-        </Text>
+        <Text className="my-2 text-base text-gray-600 ">T4 Libre</Text>
         <TextInput
           mode="outlined"
-          placeholder="hemoglobina ej: 6.5"
+          placeholder="t4 libre"
           className="mt-2 rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
-          keyboardType="decimal-pad"
-          onChangeText={(hemoglobinaGlicosilada) =>
-            actualizarGlicemia({
-              hemoglobinaGlicosilada: hemoglobinaGlicosilada,
-            })
+          keyboardType="numeric"
+          onChangeText={(t4Libre) =>
+            actualizarPerfilTiroideo({ t4Libre: t4Libre })
           }
-          value={glicemia.hemoglobinaGlicosilada}
+          value={perfiltiroideo.t4Libre}
         />
       </View>
       <View className="w-full p-4 mb-20 bg-white rounded-3xl">
@@ -64,7 +61,7 @@ export const CaptureGlicemiaScreen = () => {
           Sugerencias
         </Text>
         <View className="flex flex-row p-3 text-justify bg-white border border-gray-400 rounded-3xl">
-          <Text>{glicemia.recomendaciones}</Text>
+          <Text>{perfiltiroideo.recomendaciones}</Text>
         </View>
       </View>
     </MainLayout>

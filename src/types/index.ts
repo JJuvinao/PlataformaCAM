@@ -5,12 +5,12 @@ export type LoginUser = {
 
 // Definición de tipos para los exámenes
 export interface Hemograma {
-  hb: string;
-  hematocrito: string;
-  plaquetas: string;
-  globulosRojos: string;
-  calcio: string;
-  creatinina: string;
+  hb?: string;
+  hematocrito?: string;
+  leucocitos?: string;
+  neutrofilos?: string;
+  plaquetas?: string;
+  globulosRojos?: string;
   recomendaciones: string;
 }
 
@@ -21,7 +21,9 @@ export interface PresionArterial {
 }
 
 export interface Glicemia {
-  nivel: string;
+  ayuno: string;
+  postprandial: string;
+  hemoglobinaGlicosilada: string;
   recomendaciones: string;
 }
 
@@ -47,15 +49,28 @@ export interface Uroanalisis {
   cetona: string;
   bilirrubina: string;
   urobilinogeno: string;
-  sedimento: {
-    globulosRojos: string;
-    globulosBlancos: string;
-    cilindros: string;
-  };
+  globulosRojos: string;
+  globulosBlancos: string;
+  cilindros: string;
   recomendaciones: string;
 }
 
-export interface Potasio {
-  rango: string;
+export interface Electrolitos {
+  sodio: string;
+  cloro: string;
   recomendaciones: string;
+}
+
+export interface perfilTiroideo {
+  tsh: string;
+  t3: string;
+  t4Libre: string;
+  recomendaciones: string;
+}
+export interface perfilLipidico {
+  trigliceridos: string;
+  colesterol: string;
+  hdl: string;
+  ldl: string;
+  recomendacioneslipidico: string;
 }

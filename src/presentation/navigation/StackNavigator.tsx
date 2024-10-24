@@ -9,6 +9,8 @@ import { CaptureGlicemiaScreen } from "../screens/captureResults/CaptureGlicemia
 import { CaptureCoprologicoScreen } from "../screens/captureResults/CaptureCoprologicoScreen";
 import { CaptureUroanalisisScreen } from "../screens/captureResults/CaptureUroanalisisScreen";
 import DrawerNavigation from "./DrawerNavigation";
+import { CapturePerfilLipidicoScreen } from "../screens/captureResults/CapturePerfilLipidico";
+import { CapturePerfilTiroideoScreen } from "../screens/captureResults/CapturePerfilTiroideo";
 
 export type RootStackParamList = {
   HomeNavigator: undefined;
@@ -21,6 +23,9 @@ export type RootStackParamList = {
   CaptureGlicemiaScreen: undefined;
   CaptureCoprologicoScreen: undefined;
   CaptureUroanalisisScreen: undefined;
+  CapturePerfilLipidico: undefined;
+  CapturePerfilTiroideo: undefined;
+
   HomeDraweNavigator: undefined;
 };
 const Stack = createStackNavigator<RootStackParamList>();
@@ -56,6 +61,14 @@ function StackNavigator() {
       <Stack.Screen
         name="CaptureUroanalisisScreen"
         component={CaptureUroanalisisScreen}
+      />
+      <Stack.Screen
+        name="CapturePerfilLipidico"
+        component={CapturePerfilLipidicoScreen}
+      />
+      <Stack.Screen
+        name="CapturePerfilTiroideo"
+        component={CapturePerfilTiroideoScreen}
       />
     </Stack.Navigator>
   );
