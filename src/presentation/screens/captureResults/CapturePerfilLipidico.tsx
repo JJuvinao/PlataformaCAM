@@ -6,15 +6,20 @@ import {
   useExamenStore,
 } from "../../store/useResultsStore";
 import { TextInput } from "react-native-paper";
+import { CustomButton } from "../../components/shared/CustomButtom";
+import { useNavigation } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../../navigation/StackNavigator";
 
 export const CapturePerfilLipidicoScreen = () => {
   const { width } = useWindowDimensions();
+  const navigation =
+    useNavigation<StackScreenProps<RootStackParamList>["navigation"]>();
   const perfilLipidico = useExamenStore((state) => state.perfilLipidico);
   const actualizarPerfilLipidico = useExamenStore(
     (state) => state.actualizarPerfilLipidico
   );
 
-  // Efecto para generar y actualizar recomendaciones cada vez que el perfil lipídico cambie
   useEffect(() => {
     const recomendaciones =
       generarRecomendacionesPerfilLipidico(perfilLipidico);
@@ -24,6 +29,7 @@ export const CapturePerfilLipidicoScreen = () => {
     perfilLipidico.colesterol,
     perfilLipidico.hdl,
     perfilLipidico.ldl,
+    perfilLipidico.recomendacioneslipidico,
   ]);
 
   return (
@@ -87,14 +93,18 @@ export const CapturePerfilLipidicoScreen = () => {
           value={perfilLipidico.ldl}
         />
       </View>
-      <View className="w-full p-4 mb-20 bg-white rounded-3xl">
+      <CustomButton
+        title="Siguiente"
+        onPress={() => navigation.navigate("ResultsPerfilLipidico")}
+      />
+      {/* <View className="w-full p-4 mb-20 bg-white rounded-3xl">
         <Text className="my-2 text-2xl font-bold text-center text-textcolor">
           Sugerencias
         </Text>
         <View className="flex flex-row p-3 text-justify bg-white border border-gray-400 rounded-3xl">
           <Text>{perfilLipidico.recomendacioneslipidico}</Text>
         </View>
-      </View>
+      </View> */}
     </MainLayout>
   );
 };

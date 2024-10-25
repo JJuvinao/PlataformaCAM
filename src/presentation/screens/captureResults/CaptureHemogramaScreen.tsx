@@ -1,12 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, useWindowDimensions, View } from "react-native";
 import { MainLayout } from "../../layouts/MainLayout";
 import { TextInput } from "react-native-paper";
-import { useExamenStore } from "../../store/useResultsStore";
+import {
+  generarRecomendacionesHemograma,
+  useExamenStore,
+} from "../../store/useResultsStore";
+import { CustomButton } from "../../components/shared/CustomButtom";
+import { useNavigation } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../../navigation/StackNavigator";
 
 export const CaptureHemogramaScreen = () => {
   const { width } = useWindowDimensions();
-  const { hemograma, actualizarHemograma } = useExamenStore();
+  const navigation =
+    useNavigation<StackScreenProps<RootStackParamList>["navigation"]>();
+  // const { hemograma, actualizarHemograma } = useExamenStore();
+  const hemograma = useExamenStore((state) => state.hemograma);
+  const actualizarHemograma = useExamenStore(
+    (state) => state.actualizarHemograma
+  );
+
+  useEffect(() => {
+    const recomendaciones = generarRecomendacionesHemograma(hemograma);
+    actualizarHemograma({ recomendaciones });
+  }, [
+    hemograma.hb,
+    hemograma.hematocrito,
+    hemograma.leucocitos,
+    hemograma.neutrofilos,
+    hemograma.plaquetas,
+    hemograma.globulosRojos,
+    hemograma.recomendaciones,
+  ]);
+
   return (
     <MainLayout
       style={{
@@ -108,14 +135,18 @@ export const CaptureHemogramaScreen = () => {
           value={hemograma.calcio}
         /> */}
       </View>
-      <View className="w-full p-4 mb-20 bg-white rounded-3xl">
+      <CustomButton
+        title="Siguiente"
+        onPress={() => navigation.navigate("ResultsHemograma")}
+      />
+      {/* <View className="w-full p-4 mb-20 bg-white rounded-3xl">
         <Text className="my-2 text-2xl font-bold text-center text-textcolor">
           Sugerencias
         </Text>
         <View className="flex flex-row p-3 text-justify bg-white border border-gray-400 rounded-3xl">
           <Text>{hemograma.recomendaciones}</Text>
         </View>
-      </View>
+      </View> */}
     </MainLayout>
   );
 };

@@ -105,7 +105,10 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
       <View className="flex-1 px-3 mt-2">
         <DrawerItemList {...props} />
 
-        <TouchableOpacity onPress={() => {}} className="px-4 py-3 my-2 rounded">
+        <TouchableOpacity
+          onPress={() => navigation.navigate("HistorialScreen")}
+          className="px-4 py-3 my-2 rounded"
+        >
           <View className="flex-row items-center gap-2">
             <Text className="text-base font-bold text-white">Historial</Text>
           </View>

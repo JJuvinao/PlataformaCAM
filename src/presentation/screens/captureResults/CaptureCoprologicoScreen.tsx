@@ -1,11 +1,41 @@
 import { Text, useWindowDimensions, View } from "react-native";
 import { MainLayout } from "../../layouts/MainLayout";
 import { TextInput } from "react-native-paper";
-import { useExamenStore } from "../../store/useResultsStore";
+import {
+  generarRecomendacionesCoprologico,
+  useExamenStore,
+} from "../../store/useResultsStore";
+import { useEffect } from "react";
+import { CustomButton } from "../../components/shared/CustomButtom";
+import { useNavigation } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../../navigation/StackNavigator";
 
 export const CaptureCoprologicoScreen = () => {
   const { width } = useWindowDimensions();
-  const { actualizarCoprologico, coprologico } = useExamenStore();
+  const navigation =
+    useNavigation<StackScreenProps<RootStackParamList>["navigation"]>();
+  // const { actualizarCoprologico, coprologico } = useExamenStore();
+  const actualizarCoprologico = useExamenStore(
+    (state) => state.actualizarCoprologico
+  );
+  const coprologico = useExamenStore((state) => state.coprologico);
+
+  useEffect(() => {
+    const recomendaciones = generarRecomendacionesCoprologico(coprologico);
+    actualizarCoprologico({ recomendaciones: recomendaciones });
+  }, [
+    coprologico.colorHeces,
+    coprologico.consistencia,
+    coprologico.ph,
+    coprologico.sangreOculta,
+    coprologico.parasitos,
+    coprologico.leucocitos,
+    coprologico.eritrocitos,
+    coprologico.grasaFecal,
+    coprologico.recomendaciones,
+  ]);
+
   return (
     <MainLayout
       style={{
@@ -131,14 +161,18 @@ export const CaptureCoprologicoScreen = () => {
           value={coprologico.grasaFecal}
         />
       </View>
-      <View className="w-full p-4 mb-20 bg-white rounded-3xl">
+      <CustomButton
+        title="Siguiente"
+        onPress={() => navigation.navigate("ResultsCoprologico")}
+      />
+      {/* <View className="w-full p-4 mb-20 bg-white rounded-3xl">
         <Text className="my-2 text-2xl font-bold text-center text-textcolor">
           Sugerencias
         </Text>
         <View className="flex flex-row p-3 text-justify bg-white border border-gray-400 rounded-3xl">
           <Text>{coprologico.recomendaciones}</Text>
         </View>
-      </View>
+      </View> */}
     </MainLayout>
   );
 };

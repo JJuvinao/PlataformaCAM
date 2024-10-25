@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, useWindowDimensions, View } from "react-native";
 import { MainLayout } from "../../layouts/MainLayout";
-import { useExamenStore } from "../../store/useResultsStore";
+import {
+  generarRecomendacionesPerfilTiroideo,
+  useExamenStore,
+} from "../../store/useResultsStore";
 import { TextInput } from "react-native-paper";
+import { CustomButton } from "../../components/shared/CustomButtom";
+import { useNavigation } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../../navigation/StackNavigator";
 
 export const CapturePerfilTiroideoScreen = () => {
   const { width } = useWindowDimensions();
-  const { perfiltiroideo, actualizarPerfilTiroideo } = useExamenStore();
+  const navigation =
+    useNavigation<StackScreenProps<RootStackParamList>["navigation"]>();
+  const perfiltiroideo = useExamenStore((state) => state.perfiltiroideo);
+  const actualizarPerfilTiroideo = useExamenStore(
+    (state) => state.actualizarPerfilTiroideo
+  );
+
+  useEffect(() => {
+    const recomendaciones =
+      generarRecomendacionesPerfilTiroideo(perfiltiroideo);
+    actualizarPerfilTiroideo({ recomendaciones: recomendaciones });
+  }, [
+    perfiltiroideo.recomendaciones,
+    perfiltiroideo.tsh,
+    perfiltiroideo.t3,
+    perfiltiroideo.t4Libre,
+  ]);
 
   return (
     <MainLayout
@@ -56,14 +79,18 @@ export const CapturePerfilTiroideoScreen = () => {
           value={perfiltiroideo.t4Libre}
         />
       </View>
-      <View className="w-full p-4 mb-20 bg-white rounded-3xl">
+      <CustomButton
+        title="Siguiente"
+        onPress={() => navigation.navigate("ResultsPerfilTiroideo")}
+      />
+      {/* <View className="w-full p-4 mb-20 bg-white rounded-3xl">
         <Text className="my-2 text-2xl font-bold text-center text-textcolor">
           Sugerencias
         </Text>
         <View className="flex flex-row p-3 text-justify bg-white border border-gray-400 rounded-3xl">
           <Text>{perfiltiroideo.recomendaciones}</Text>
         </View>
-      </View>
+      </View> */}
     </MainLayout>
   );
 };

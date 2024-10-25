@@ -6,11 +6,19 @@ import { useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/StackNavigator";
 import { Button } from "react-native-paper";
+import { useExamenStore } from "../../store/useResultsStore";
 
 export const HomeCaptureResults = () => {
   const navigation =
     useNavigation<StackScreenProps<RootStackParamList>["navigation"]>();
   const { width } = useWindowDimensions();
+  const guardarDatosEnFirebase = useExamenStore(
+    (state) => state.guardarDatosEnFirebase
+  );
+
+  const handleDatos = async () => {
+    await guardarDatosEnFirebase();
+  };
   return (
     <MainLayout
       style={{
@@ -122,9 +130,9 @@ export const HomeCaptureResults = () => {
       <Button
         mode="contained-tonal"
         className="w-full mb-24 bg-colorButton rounded-3xl"
-        onPress={() => console.log("Guardar datos")}
+        onPress={handleDatos}
       >
-        <Text className="text-xl italic font-bold text-white ">Capturar</Text>
+        <Text className="text-xl italic font-bold text-white">Capturar</Text>
       </Button>
     </MainLayout>
   );

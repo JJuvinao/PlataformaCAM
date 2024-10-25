@@ -1,13 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, useWindowDimensions, View } from "react-native";
 import { MainLayout } from "../../layouts/MainLayout";
 import { TextInput } from "react-native-paper";
-import { useExamenStore } from "../../store/useResultsStore";
+import {
+  generarRecomendacionesUroanalisis,
+  useExamenStore,
+} from "../../store/useResultsStore";
+import { CustomButton } from "../../components/shared/CustomButtom";
+import { useNavigation } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../../navigation/StackNavigator";
 
 export const CaptureUroanalisisScreen = () => {
   const { width } = useWindowDimensions();
-  const { uroanalisis, actualizarUroanalisis } = useExamenStore();
-  console.log(uroanalisis);
+  const navigation =
+    useNavigation<StackScreenProps<RootStackParamList>["navigation"]>();
+  // const { uroanalisis, actualizarUroanalisis } = useExamenStore();
+  const uroanalisis = useExamenStore((state) => state.uroanalisis);
+  const actualizarUroanalisis = useExamenStore(
+    (state) => state.actualizarUroanalisis
+  );
+
+  useEffect(() => {
+    const recomendaciones = generarRecomendacionesUroanalisis(uroanalisis);
+    actualizarUroanalisis({ recomendaciones: recomendaciones });
+  }, [
+    uroanalisis.aspecto,
+    uroanalisis.color,
+    uroanalisis.densidad,
+    uroanalisis.ph,
+    uroanalisis.proteinas,
+    uroanalisis.glucosa,
+    uroanalisis.cetona,
+    uroanalisis.bilirrubina,
+    uroanalisis.urobilinogeno,
+    uroanalisis.globulosRojos,
+    uroanalisis.globulosBlancos,
+    uroanalisis.cilindros,
+    uroanalisis.recomendaciones,
+  ]);
+
   return (
     <MainLayout
       style={{
@@ -184,14 +216,18 @@ export const CaptureUroanalisisScreen = () => {
           value={uroanalisis.cilindros}
         />
       </View>
-      <View className="w-full p-4 mb-20 bg-white rounded-3xl">
+      <CustomButton
+        title="Siguiente"
+        onPress={() => navigation.navigate("ResultsUroanalisi")}
+      />
+      {/* <View className="w-full p-4 mb-20 bg-white rounded-3xl">
         <Text className="my-2 text-2xl font-bold text-center text-textcolor">
           Sugerencias
         </Text>
         <View className="flex flex-row p-3 text-justify bg-white border border-gray-400 rounded-3xl">
           <Text>{uroanalisis?.recomendaciones}</Text>
         </View>
-      </View>
+      </View> */}
     </MainLayout>
   );
 };

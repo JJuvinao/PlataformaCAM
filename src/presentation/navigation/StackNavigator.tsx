@@ -8,9 +8,18 @@ import { CapturePresionArterialScreen } from "../screens/captureResults/CaptureP
 import { CaptureGlicemiaScreen } from "../screens/captureResults/CaptureGlicemiaScreen";
 import { CaptureCoprologicoScreen } from "../screens/captureResults/CaptureCoprologicoScreen";
 import { CaptureUroanalisisScreen } from "../screens/captureResults/CaptureUroanalisisScreen";
-import DrawerNavigation from "./DrawerNavigation";
 import { CapturePerfilLipidicoScreen } from "../screens/captureResults/CapturePerfilLipidico";
 import { CapturePerfilTiroideoScreen } from "../screens/captureResults/CapturePerfilTiroideo";
+import { ResultElectrolitos } from "../screens/Results/ResultsElectrolitos";
+import { ResultHemograma } from "../screens/Results/ResultsHemograma";
+import { ResultsGlicemia } from "../screens/Results/ResultsGlicemia";
+import { ResultPresionArterial } from "../screens/Results/ResultsPresionArterial";
+import { ResulsPerfilTiroideo } from "../screens/Results/ResultsPerfilTiroideo";
+import { ResultsCoprologico } from "../screens/Results/ResultsCoprologico";
+import { ResultsUroanalisis } from "../screens/Results/ResultsUroanalisis";
+import { ResultsPerfilLipidico } from "../screens/Results/ResultsPerfilLipidico";
+import HistorialExamenes from "../screens/historical/HistoricalScreen";
+import DetalleExamen from "../screens/historical/ResutlDetailScreen";
 
 export type RootStackParamList = {
   HomeNavigator: undefined;
@@ -25,6 +34,16 @@ export type RootStackParamList = {
   CaptureUroanalisisScreen: undefined;
   CapturePerfilLipidico: undefined;
   CapturePerfilTiroideo: undefined;
+  ResultsElectrolitos: undefined;
+  ResultsHemograma: undefined;
+  ResultsGlicemia: undefined;
+  ResultsPresionArterial: undefined;
+  ResultsCoprologico: undefined;
+  ResultsUroanalisi: undefined;
+  ResultsPerfilTiroideo: undefined;
+  ResultsPerfilLipidico: undefined;
+  HistorialScreen: undefined;
+  DetallesResultScreen: { examen: any };
 
   HomeDraweNavigator: undefined;
 };
@@ -70,6 +89,25 @@ function StackNavigator() {
         name="CapturePerfilTiroideo"
         component={CapturePerfilTiroideoScreen}
       />
+      <Stack.Screen name="ResultsElectrolitos" component={ResultElectrolitos} />
+      <Stack.Screen name="ResultsHemograma" component={ResultHemograma} />
+      <Stack.Screen name="ResultsGlicemia" component={ResultsGlicemia} />
+      <Stack.Screen
+        name="ResultsPresionArterial"
+        component={ResultPresionArterial}
+      />
+      <Stack.Screen name="ResultsCoprologico" component={ResultsCoprologico} />
+      <Stack.Screen name="ResultsUroanalisi" component={ResultsUroanalisis} />
+      <Stack.Screen
+        name="ResultsPerfilTiroideo"
+        component={ResulsPerfilTiroideo}
+      />
+      <Stack.Screen
+        name="ResultsPerfilLipidico"
+        component={ResultsPerfilLipidico}
+      />
+      <Stack.Screen name="HistorialScreen" component={HistorialExamenes} />
+      <Stack.Screen name="DetallesResultScreen" component={DetalleExamen} />
     </Stack.Navigator>
   );
 }

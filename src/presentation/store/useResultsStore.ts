@@ -9,6 +9,21 @@ import {
   perfilLipidico,
   perfilTiroideo,
 } from "../../types";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../config";
+
+interface Examen {
+  id: string;
+  hemograma: {
+    hb: string;
+    hematocrito: string;
+  };
+  presionArterial: {
+    sistolica: string;
+    diastolica: string;
+  };
+  fecha: any; // Campo de fecha
+}
 
 interface EstadoExamenes {
   hemograma: Hemograma;
@@ -28,9 +43,10 @@ interface EstadoExamenes {
   actualizarElectrolitos: (data: Partial<Electrolitos>) => void;
   actualizarPerfilLipidico: (data: Partial<perfilLipidico>) => void;
   actualizarPerfilTiroideo: (data: Partial<perfilTiroideo>) => void;
+  guardarDatosEnFirebase: () => Promise<void>;
 }
 
-const generarRecomendacionesHemograma = (data: Hemograma): string => {
+export const generarRecomendacionesHemograma = (data: Hemograma): string => {
   let recomendaciones = "";
 
   const hb = parseFloat(data.hb || "0");
@@ -40,7 +56,6 @@ const generarRecomendacionesHemograma = (data: Hemograma): string => {
   const plaquetas = parseFloat(data.plaquetas || "0");
   const globulosRojos = parseFloat(data.globulosRojos || "0");
 
-  // Hemoglobina
   if (hb < 12) {
     recomendaciones +=
       "Hemoglobina: Posible anemia, se recomienda consultar a un médico.\n";
@@ -49,7 +64,6 @@ const generarRecomendacionesHemograma = (data: Hemograma): string => {
       "Hemoglobina: Posible policitemia, se recomienda consultar a un médico.\n";
   }
 
-  // Hematocrito
   if (hematocrito < 36) {
     recomendaciones +=
       "Hematocrito: Posible anemia, se recomienda consultar a un médico.\n";
@@ -58,7 +72,6 @@ const generarRecomendacionesHemograma = (data: Hemograma): string => {
       "Hematocrito: Posible deshidratación o enfermedad pulmonar, se recomienda consultar a un médico.\n";
   }
 
-  // Leucocitos
   if (leucocitos < 4000) {
     recomendaciones +=
       "Leucocitos: Posible leucopenia, se recomienda consultar a un médico.\n";
@@ -67,7 +80,6 @@ const generarRecomendacionesHemograma = (data: Hemograma): string => {
       "Leucocitos: Posible leucocitosis, se recomienda consultar a un médico.\n";
   }
 
-  // Neutrófilos
   if (neutrofilos < 2000) {
     recomendaciones +=
       "Neutrófilos: Posible neutropenia, se recomienda consultar a un médico.\n";
@@ -76,7 +88,6 @@ const generarRecomendacionesHemograma = (data: Hemograma): string => {
       "Neutrófilos: Posible infección o inflamación, se recomienda consultar a un médico.\n";
   }
 
-  // Plaquetas
   if (plaquetas < 150000) {
     recomendaciones +=
       "Plaquetas: Posible trombocitopenia, se recomienda consultar a un médico.\n";
@@ -85,7 +96,6 @@ const generarRecomendacionesHemograma = (data: Hemograma): string => {
       "Plaquetas: Posible trombocitosis, se recomienda consultar a un médico.\n";
   }
 
-  // Glóbulos Rojos
   if (globulosRojos < 4.2) {
     recomendaciones +=
       "Glóbulos Rojos: Posible anemia, se recomienda consultar a un médico.\n";
@@ -99,7 +109,9 @@ const generarRecomendacionesHemograma = (data: Hemograma): string => {
     : "Todos los resultados están dentro de los rangos normales.";
 };
 
-const generarRecomendacionesCoprologico = (data: Coprologico): string => {
+export const generarRecomendacionesCoprologico = (
+  data: Coprologico
+): string => {
   let recomendaciones = "";
 
   const colorHeces = data.colorHeces;
@@ -147,14 +159,13 @@ const generarRecomendacionesCoprologico = (data: Coprologico): string => {
     : "Todos los resultados están dentro de los rangos normales.";
 };
 
-const generarRecomendacionesGlicemia = (data: Glicemia): string => {
+export const generarRecomendacionesGlicemia = (data: Glicemia): string => {
   let recomendaciones = "";
 
   const ayuno = parseFloat(data.ayuno || "0");
   const postprandial = parseFloat(data.postprandial || "0");
   const hemoglobinaGlicosilada = parseFloat(data.hemoglobinaGlicosilada || "0");
 
-  // Glicemia en ayuno
   if (ayuno < 70) {
     recomendaciones +=
       "Glicemia en ayuno: Posible hipoglucemia, se recomienda consultar a un médico.\n";
@@ -163,13 +174,11 @@ const generarRecomendacionesGlicemia = (data: Glicemia): string => {
       "Glicemia en ayuno: Posible pre-diabetes o diabetes, se recomienda consultar a un médico.\n";
   }
 
-  // Glicemia postprandial
   if (postprandial >= 140) {
     recomendaciones +=
       "Glicemia postprandial: Posible pre-diabetes o diabetes, se recomienda consultar a un médico.\n";
   }
 
-  // Hemoglobina Glicosilada (HbA1c)
   if (hemoglobinaGlicosilada >= 6.5) {
     recomendaciones +=
       "Hemoglobina Glicosilada: Posible diabetes, se recomienda consultar a un médico.\n";
@@ -183,7 +192,7 @@ const generarRecomendacionesGlicemia = (data: Glicemia): string => {
     : "Todos los resultados están dentro de los rangos normales.";
 };
 
-const generarRecomendacionesPresionArterial = (
+export const generarRecomendacionesPresionArterial = (
   data: PresionArterial
 ): string => {
   let recomendaciones = "";
@@ -206,17 +215,19 @@ const generarRecomendacionesPresionArterial = (
     : "Todos los resultados están dentro de los rangos normales.";
 };
 
-const generarRecomendacionesUroanalisis = (data: Uroanalisis): string => {
+export const generarRecomendacionesUroanalisis = (
+  data: Uroanalisis
+): string => {
   let recomendaciones = "";
 
-  const aspecto = data.aspecto; // Limpio
-  const color = data.color; // Amarillo claro
+  const aspecto = data.aspecto;
+  const color = data.color;
   const densidad = parseFloat(data.densidad || "0");
   const ph = parseFloat(data.ph || "0");
-  const proteinas = data.proteinas; // Negativo o positivo
-  const glucosa = data.glucosa; // Negativo o positivo
-  const cetonas = data.cetona; // Negativo o positivo
-  const bilirrubina = data.bilirrubina; // Negativo o positivo
+  const proteinas = data.proteinas;
+  const glucosa = data.glucosa;
+  const cetonas = data.cetona;
+  const bilirrubina = data.bilirrubina;
   const urobilinogeno = parseFloat(data.urobilinogeno || "0");
   const globulosrojos = parseFloat(data.globulosRojos || "0");
   const globulosblancos = parseFloat(data.globulosBlancos || "0");
@@ -275,21 +286,21 @@ const generarRecomendacionesUroanalisis = (data: Uroanalisis): string => {
     : "Todos los resultados están dentro de los rangos normales.";
 };
 
-const generarRecomendacionesPerfilTiroideo = (data: perfilTiroideo): string => {
+export const generarRecomendacionesPerfilTiroideo = (
+  data: perfilTiroideo
+): string => {
   let recomendaciones = "";
 
   const tsh = parseFloat(data.tsh);
   const t3 = parseFloat(data.t3);
   const t4Libre = parseFloat(data.t4Libre);
 
-  // Recomendaciones para TSH
   if (tsh > 4.0) {
     recomendaciones += "TSH alta: Posible hipotiroidismo.\n";
   } else if (tsh < 0.4) {
     recomendaciones += "TSH baja: Posible hipertiroidismo.\n";
   }
 
-  // Recomendaciones para T3 y T4
   if (t3 < 100 || t3 > 200 || t4Libre < 0.7 || t4Libre > 1.9) {
     recomendaciones += "T3 y T4 alterados: Posible disfunción tiroidea.\n";
   }
@@ -310,25 +321,21 @@ export const generarRecomendacionesPerfilLipidico = (
   const hdl = parseFloat(data.hdl || "0");
   const ldl = parseFloat(data.ldl || "0");
 
-  // recomendacioneslipidico para triglicéridos
   if (trigliceridos > 150) {
     recomendacioneslipidico +=
       "Triglicéridos elevados: Riesgo de enfermedad cardiovascular.\n";
   }
 
-  // recomendacioneslipidico para colesterol total
   if (colesterol > 200) {
     recomendacioneslipidico +=
       "Colesterol elevado: Posible riesgo de enfermedad cardiovascular.\n";
   }
 
-  // recomendacioneslipidico para HDL
   if (hdl < 40) {
     recomendacioneslipidico +=
       "HDL bajo: Posible riesgo cardiovascular elevado.\n";
   }
 
-  // recomendacioneslipidico para LDL
   if (ldl > 130) {
     recomendacioneslipidico += "LDL alto: Posible riesgo cardiovascular.\n";
   }
@@ -336,7 +343,34 @@ export const generarRecomendacionesPerfilLipidico = (
   return recomendacioneslipidico;
 };
 
-export const useExamenStore = create<EstadoExamenes>((set) => ({
+export const generarRecomendacionesElectrolitos = (
+  data: Electrolitos
+): string => {
+  let recomendacionesElectrolitos = "";
+
+  const sodio = parseFloat(data.sodio || "0");
+  const cloro = parseFloat(data.cloro || "0");
+
+  if (sodio < 135) {
+    recomendacionesElectrolitos +=
+      "Sodio bajo: Riesgo de hiponatremia, puede causar confusión, fatiga y mareos.\n";
+  } else if (sodio > 145) {
+    recomendacionesElectrolitos +=
+      "Sodio elevado: Riesgo de hipernatremia, puede causar deshidratación o hipertensión.\n";
+  }
+
+  if (cloro < 96) {
+    recomendacionesElectrolitos +=
+      "Cloro bajo: Puede indicar hipocloremia, posible desbalance electrolítico.\n";
+  } else if (cloro > 106) {
+    recomendacionesElectrolitos +=
+      "Cloro elevado: Puede indicar hipercloremia, relacionado con deshidratación o acidosis metabólica.\n";
+  }
+
+  return recomendacionesElectrolitos;
+};
+
+export const useExamenStore = create<EstadoExamenes>((set, get) => ({
   hemograma: {
     hb: "",
     hematocrito: "",
@@ -407,76 +441,176 @@ export const useExamenStore = create<EstadoExamenes>((set) => ({
       hemograma: {
         ...state.hemograma,
         ...data,
-        recomendaciones: generarRecomendacionesHemograma(data as Hemograma),
+        // recomendaciones: generarRecomendacionesHemograma(data as Hemograma),
       },
     })),
 
-  actualizarPresionArterial: (data) =>
+  actualizarPresionArterial: (nuevosValores) =>
     set((state) => ({
       presionArterial: {
         ...state.presionArterial,
-        ...data,
-        recomendaciones: generarRecomendacionesPresionArterial(
-          data as PresionArterial
-        ),
+        ...nuevosValores,
+        // recomendaciones: generarRecomendacionesPresionArterial(
+        //   data as PresionArterial
+        // ),
       },
     })),
 
-  actualizarGlicemia: (data) =>
+  actualizarGlicemia: (nuevosValores) =>
     set((state) => ({
       glicemia: {
         ...state.glicemia,
-        ...data,
-        recomendaciones: generarRecomendacionesGlicemia(data as Glicemia),
+        ...nuevosValores,
+        // recomendaciones: generarRecomendacionesGlicemia(data as Glicemia),
       },
     })),
 
-  actualizarCoprologico: (data) =>
+  actualizarCoprologico: (nuevosValores) =>
     set((state) => ({
       coprologico: {
         ...state.coprologico,
-        ...data,
-        recomendaciones: generarRecomendacionesCoprologico(data as Coprologico),
+        ...nuevosValores,
+        // recomendaciones: generarRecomendacionesCoprologico(data as Coprologico),
       },
     })),
 
-  actualizarUroanalisis: (data) =>
+  actualizarUroanalisis: (nuevosValores) =>
     set((state) => ({
       uroanalisis: {
         ...state.uroanalisis,
-        ...data,
-        recomendaciones: generarRecomendacionesUroanalisis(data as Uroanalisis),
+        ...nuevosValores,
+        // recomendaciones: generarRecomendacionesUroanalisis(data as Uroanalisis),
       },
     })),
 
-  actualizarElectrolitos: (data) =>
+  actualizarElectrolitos: (nuevosValores) =>
     set((state) => ({
       electrolitos: {
         ...state.electrolitos,
-        ...data,
-        recomendaciones:
-          parseFloat(data.sodio || "0") < 135
-            ? "Hiponatremia."
-            : "Resultados normales.",
+        ...nuevosValores,
+        // recomendaciones:
+        //   parseFloat(data.sodio || "0") < 135
+        //     ? "Hiponatremia."
+        //     : "Resultados normales.",
       },
     })),
 
   actualizarPerfilLipidico: (nuevosValores) =>
     set((state) => ({
       perfilLipidico: {
-        ...state.perfilLipidico, // Mantén los valores actuales
-        ...nuevosValores, // Solo actualiza con los nuevos valores
+        ...state.perfilLipidico,
+        ...nuevosValores,
       },
     })),
 
-  actualizarPerfilTiroideo: (data) =>
+  actualizarPerfilTiroideo: (nuevosValores) =>
     set((state) => ({
       perfiltiroideo: {
         ...state.perfiltiroideo,
-        ...data,
-        recomendaciones: generarRecomendacionesPerfilTiroideo(
-          data as perfilTiroideo
-        ),
+        ...nuevosValores,
+        // recomendaciones: generarRecomendacionesPerfilTiroideo(
+        //   data as perfilTiroideo
+        // ),
       },
     })),
+  guardarDatosEnFirebase: async () => {
+    const {
+      hemograma,
+      presionArterial,
+      glicemia,
+      coprologico,
+      uroanalisis,
+      electrolitos,
+      perfilLipidico,
+      perfiltiroideo,
+    } = get();
+
+    const data = {
+      hemograma,
+      presionArterial,
+      glicemia,
+      coprologico,
+      uroanalisis,
+      electrolitos,
+      perfilLipidico,
+      perfiltiroideo,
+      fecha: new Date(),
+    };
+
+    try {
+      const datos = await addDoc(collection(db, "examenes"), data);
+      if (datos) {
+        console.log("Datos guardados exitosamente");
+        // Limpiar el estado de los exámenes
+        set({
+          hemograma: {
+            hb: "",
+            hematocrito: "",
+            leucocitos: "",
+            neutrofilos: "",
+            plaquetas: "",
+            globulosRojos: "",
+            recomendaciones: "",
+          },
+          presionArterial: {
+            sistolica: "",
+            diastolica: "",
+            recomendaciones: "",
+          },
+          glicemia: {
+            ayuno: "",
+            postprandial: "",
+            hemoglobinaGlicosilada: "",
+            recomendaciones: "",
+          },
+          coprologico: {
+            colorHeces: "",
+            consistencia: "",
+            ph: "",
+            sangreOculta: "",
+            parasitos: "",
+            leucocitos: "",
+            eritrocitos: "",
+            grasaFecal: "",
+            recomendaciones: "",
+          },
+          uroanalisis: {
+            aspecto: "",
+            color: "",
+            densidad: "",
+            ph: "",
+            proteinas: "",
+            glucosa: "",
+            cetona: "",
+            bilirrubina: "",
+            urobilinogeno: "",
+            globulosRojos: "",
+            globulosBlancos: "",
+            cilindros: "",
+            recomendaciones: "",
+          },
+          perfiltiroideo: {
+            tsh: "",
+            t3: "",
+            t4Libre: "",
+            recomendaciones: "",
+          },
+          perfilLipidico: {
+            trigliceridos: "",
+            colesterol: "",
+            hdl: "",
+            ldl: "",
+            recomendacioneslipidico: "",
+          },
+          electrolitos: {
+            sodio: "",
+            cloro: "",
+            recomendaciones: "",
+          },
+        });
+      }
+    } catch (error) {
+      console.error("Error al guardar los datos en Firebase:", error);
+    }
+  },
 }));
