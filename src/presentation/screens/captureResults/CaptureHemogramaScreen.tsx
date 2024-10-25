@@ -48,9 +48,10 @@ export const CaptureHemogramaScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="rango Ej: 10"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(hb) => actualizarHemograma({ hb: hb })}
           value={hemograma.hb}
@@ -59,9 +60,10 @@ export const CaptureHemogramaScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="rango Ej: 36"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(hematocritos) =>
             actualizarHemograma({ hematocrito: hematocritos })
@@ -72,9 +74,10 @@ export const CaptureHemogramaScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="rango Ej: 4,000"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="decimal-pad"
           onChangeText={(leucocitos) =>
             actualizarHemograma({ leucocitos: leucocitos })
@@ -85,9 +88,10 @@ export const CaptureHemogramaScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="rango Ej: 2,000"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(neutrofilos) =>
             actualizarHemograma({ neutrofilos: neutrofilos })
@@ -99,9 +103,10 @@ export const CaptureHemogramaScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="rango Ej: 150,000"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(plaquetas) =>
             actualizarHemograma({ plaquetas: plaquetas })
@@ -114,9 +119,10 @@ export const CaptureHemogramaScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="rango Ej: 4.2"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="decimal-pad"
           onChangeText={(globulosRojos) =>
             actualizarHemograma({ globulosRojos: globulosRojos })
@@ -127,9 +133,10 @@ export const CaptureHemogramaScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="calcio"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+           textColor="#000000"
           keyboardType="numeric"
           onChangeText={(calcio) => actualizarHemograma({ calcio: calcio })}
           value={hemograma.calcio}

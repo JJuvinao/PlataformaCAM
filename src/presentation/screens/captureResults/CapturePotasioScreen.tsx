@@ -44,9 +44,10 @@ export const CapturePotasioScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="Rango de Potasio"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(sodio) => actualizarElectrolitos({ sodio })}
           value={electrolitos.sodio}
@@ -55,9 +56,10 @@ export const CapturePotasioScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="Rango de Potasio"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(cloro) => actualizarElectrolitos({ cloro })}
           value={electrolitos.cloro}

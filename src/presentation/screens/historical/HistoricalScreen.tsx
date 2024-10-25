@@ -1,4 +1,3 @@
-// src/components/HistorialExamenes.tsx
 import React, { useEffect, useState } from "react";
 import {
   FlatList,
@@ -14,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/StackNavigator";
 import { ResultLayout } from "../../layouts/ResultLayout";
+import { ActivityIndicator } from "react-native-paper";
 
 interface Examen {
   id: string;
@@ -32,10 +32,12 @@ export type Props = StackScreenProps<RootStackParamList, "HistorialScreen">;
 
 const HistorialExamenes = ({ navigation }: Props) => {
   const [examenes, setExamenes] = useState<Examen[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const { width } = useWindowDimensions();
   const obtenerExamenes = async () => {
     try {
+      setLoading(true);
       const querySnapshot = await getDocs(collection(db, "examenes"));
       const listaExamenes: Examen[] = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -43,6 +45,7 @@ const HistorialExamenes = ({ navigation }: Props) => {
       })) as Examen[];
 
       setExamenes(listaExamenes);
+      setLoading(false);
     } catch (error) {
       console.log("Error al obtener los exámenes:", error);
     }
@@ -81,19 +84,25 @@ const HistorialExamenes = ({ navigation }: Props) => {
         paddingHorizontal: width * 0.05,
       }}
     >
-      <Text className="mb-2 text-2xl italic font-bold text-center text-textcolor">
-        Historias de Exámenes
-      </Text>
-      {examenes.length > 0 ? (
-        <FlatList
-          data={examenes}
-          renderItem={renderExamen}
-          keyExtractor={(item) => item.id}
-        />
+      {loading ? (
+        <ActivityIndicator size="small" color="#3463FA" />
       ) : (
-        <Text className="mt-6 text-lg text-center">
-          No hay exámenes registrados.
-        </Text>
+        <>
+          <Text className="mb-2 text-2xl italic font-bold text-center text-textcolor">
+            Historial de Exámenes
+          </Text>
+          {examenes.length > 0 ? (
+            <FlatList
+              data={examenes}
+              renderItem={renderExamen}
+              keyExtractor={(item) => item.id}
+            />
+          ) : (
+            <Text className="mt-6 text-lg text-center">
+              No hay exámenes registrados.
+            </Text>
+          )}
+        </>
       )}
     </ResultLayout>
   );

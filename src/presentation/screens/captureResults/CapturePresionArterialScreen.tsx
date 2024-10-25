@@ -48,9 +48,10 @@ export const CapturePresionArterialScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="sistolica"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(sistolica) =>
             actualizarPresionArterial({ sistolica: sistolica })
@@ -61,9 +62,10 @@ export const CapturePresionArterialScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="diastolica"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(diastolica) =>
             actualizarPresionArterial({ diastolica: diastolica })

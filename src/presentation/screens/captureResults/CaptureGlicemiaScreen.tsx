@@ -46,8 +46,9 @@ export const CaptureGlicemiaScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="sistolica ej: 70"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
+          textColor="#000000"
           activeOutlineColor="#0093FB"
           keyboardType="numeric"
           onChangeText={(ayuno) => actualizarGlicemia({ ayuno: ayuno })}
@@ -57,8 +58,9 @@ export const CaptureGlicemiaScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="postprandial ej: 140"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
+          textColor="#000000"
           activeOutlineColor="#0093FB"
           keyboardType="numeric"
           onChangeText={(postprandial) =>
@@ -72,8 +74,9 @@ export const CaptureGlicemiaScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="hemoglobina ej: 6.5"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
+          textColor="#000000"
           activeOutlineColor="#0093FB"
           keyboardType="decimal-pad"
           onChangeText={(hemoglobinaGlicosilada) =>

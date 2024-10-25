@@ -5,12 +5,12 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBHRFEwiTBBmH0TgS9Ni42ksKGElVyKEOw",
-  authDomain: "supremoapp-e58bf.firebaseapp.com",
-  projectId: "supremoapp-e58bf",
-  storageBucket: "supremoapp-e58bf.appspot.com",
-  messagingSenderId: "1023765458539",
-  appId: "1:1023765458539:web:d8f131a142121588230b2e",
+  apiKey: process.env.EXPO_PUBLIC_APIKEY,
+  authDomain: process.env.EXPO_PUBLIC_AUTHDOMAIN,
+  projectId: process.env.EXPO_PUBLIC_PROJECTID,
+  storageBucket: process.env.EXPO_PUBLIC_STORAGEBUCKET,
+  messagingSenderId: process.env.EXPO_PUBLIC_MESSAGINGSENDERID,
+  appId: process.env.EXPO_PUBLIC_APPID,
 };
 
 const app = initializeApp(firebaseConfig);

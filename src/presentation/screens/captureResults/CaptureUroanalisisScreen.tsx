@@ -56,9 +56,10 @@ export const CaptureUroanalisisScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="aspecto ej: limpio"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           autoCapitalize="none"
           onChangeText={(aspecto) => actualizarUroanalisis({ aspecto })}
           value={uroanalisis.aspecto}
@@ -67,9 +68,11 @@ export const CaptureUroanalisisScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="color ej: amarillo claro"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
+          autoCapitalize="none"
           onChangeText={(color) => actualizarUroanalisis({ color })}
           value={uroanalisis.color}
         />
@@ -77,9 +80,10 @@ export const CaptureUroanalisisScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="densidad ej: 1.005"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(densidad) => actualizarUroanalisis({ densidad })}
           value={uroanalisis.densidad}
@@ -88,9 +92,10 @@ export const CaptureUroanalisisScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="ph ej: 4.5"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="decimal-pad"
           onChangeText={(ph) => actualizarUroanalisis({ ph })}
           value={uroanalisis.ph}
@@ -101,9 +106,10 @@ export const CaptureUroanalisisScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="proteinas"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="default"
           autoCapitalize="none"
           onChangeText={(proteinas) => actualizarUroanalisis({ proteinas })}
@@ -115,9 +121,10 @@ export const CaptureUroanalisisScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="glucosa ej: positivo"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="default"
           autoCapitalize="none"
           onChangeText={(glucosa) => actualizarUroanalisis({ glucosa })}
@@ -129,9 +136,10 @@ export const CaptureUroanalisisScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="cetonas ej: positivo"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           autoCapitalize="none"
           keyboardType="default"
           onChangeText={(cetona) => actualizarUroanalisis({ cetona })}
@@ -143,9 +151,10 @@ export const CaptureUroanalisisScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="bilirrubina ej: positivo"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="default"
           autoCapitalize="none"
           onChangeText={(bilirrubina) => actualizarUroanalisis({ bilirrubina })}
@@ -157,9 +166,10 @@ export const CaptureUroanalisisScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="urobilinogeno ej: 1.0"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="decimal-pad"
           onChangeText={(urobilinogeno) =>
             actualizarUroanalisis({ urobilinogeno })
@@ -172,9 +182,10 @@ export const CaptureUroanalisisScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="Glóbulos rojos ej: 0"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(globulosrojos) =>
             actualizarUroanalisis({
@@ -188,9 +199,10 @@ export const CaptureUroanalisisScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="Glóbulos blancos ej: 0"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(globulosblancos) =>
             actualizarUroanalisis({
@@ -204,9 +216,10 @@ export const CaptureUroanalisisScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="Cilindros ej: 0"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(cilindros) =>
             actualizarUroanalisis({

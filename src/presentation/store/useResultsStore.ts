@@ -43,7 +43,8 @@ interface EstadoExamenes {
   actualizarElectrolitos: (data: Partial<Electrolitos>) => void;
   actualizarPerfilLipidico: (data: Partial<perfilLipidico>) => void;
   actualizarPerfilTiroideo: (data: Partial<perfilTiroideo>) => void;
-  guardarDatosEnFirebase: () => Promise<void>;
+  // guardarDatosEnFirebase: () => Promise<void>;
+  guardarDatosEnFirebase: (onSuccess: any) => Promise<void>;
 }
 
 export const generarRecomendacionesHemograma = (data: Hemograma): string => {
@@ -513,7 +514,7 @@ export const useExamenStore = create<EstadoExamenes>((set, get) => ({
         // ),
       },
     })),
-  guardarDatosEnFirebase: async () => {
+  guardarDatosEnFirebase: async (onSuccess: any) => {
     const {
       hemograma,
       presionArterial,
@@ -540,8 +541,6 @@ export const useExamenStore = create<EstadoExamenes>((set, get) => ({
     try {
       const datos = await addDoc(collection(db, "examenes"), data);
       if (datos) {
-        console.log("Datos guardados exitosamente");
-        // Limpiar el estado de los exámenes
         set({
           hemograma: {
             hb: "",
@@ -608,9 +607,10 @@ export const useExamenStore = create<EstadoExamenes>((set, get) => ({
             recomendaciones: "",
           },
         });
+        if (onSuccess) onSuccess();
       }
     } catch (error) {
-      console.error("Error al guardar los datos en Firebase:", error);
+      throw new Error("Error al guardar los datos");
     }
   },
 }));

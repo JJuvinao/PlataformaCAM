@@ -48,9 +48,10 @@ export const CapturePerfilLipidicoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="trigliceridos"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(trigliceridos) =>
             actualizarPerfilLipidico({ trigliceridos })
@@ -61,9 +62,10 @@ export const CapturePerfilLipidicoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="colesterol"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(colesterol) =>
             actualizarPerfilLipidico({ colesterol })
@@ -74,9 +76,10 @@ export const CapturePerfilLipidicoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="hdl"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(hdl) => actualizarPerfilLipidico({ hdl })}
           value={perfilLipidico.hdl}
@@ -85,9 +88,10 @@ export const CapturePerfilLipidicoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="ldl"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(ldl) => actualizarPerfilLipidico({ ldl })}
           value={perfilLipidico.ldl}

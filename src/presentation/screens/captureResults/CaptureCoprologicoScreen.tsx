@@ -52,9 +52,12 @@ export const CaptureCoprologicoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="color heces ej: marrón"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
+          textColor="#000000"
           activeOutlineColor="#0093FB"
+          //  className="bg-white rounded-3xl h-11"
+
           keyboardType="default"
           autoCapitalize="none"
           onChangeText={(color) => actualizarCoprologico({ colorHeces: color })}
@@ -64,8 +67,9 @@ export const CaptureCoprologicoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="consistencia ej: normal"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
+          textColor="#000000"
           activeOutlineColor="#0093FB"
           keyboardType="default"
           autoCapitalize="none"
@@ -79,8 +83,9 @@ export const CaptureCoprologicoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="ph fecal ej: 1"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
+          textColor="#000000"
           activeOutlineColor="#0093FB"
           keyboardType="numeric"
           onChangeText={(ph) => actualizarCoprologico({ ph: ph })}
@@ -92,8 +97,9 @@ export const CaptureCoprologicoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="sangre oculta ej: positivo"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
+          textColor="#000000"
           activeOutlineColor="#0093FB"
           keyboardType="default"
           autoCapitalize="none"
@@ -108,8 +114,9 @@ export const CaptureCoprologicoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="parasitos ej: negativo"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
+          textColor="#000000"
           activeOutlineColor="#0093FB"
           keyboardType="default"
           autoCapitalize="none"
@@ -122,8 +129,9 @@ export const CaptureCoprologicoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="valor ej: 1"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
+          textColor="#000000"
           activeOutlineColor="#0093FB"
           keyboardType="numeric"
           onChangeText={(leucocitos) =>
@@ -135,8 +143,9 @@ export const CaptureCoprologicoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="valor ej: 1"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
+          textColor="#000000"
           activeOutlineColor="#0093FB"
           keyboardType="numeric"
           onChangeText={(eritrocitos) =>
@@ -150,8 +159,9 @@ export const CaptureCoprologicoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="grasa ej: positiva "
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
+          textColor="#000000"
           activeOutlineColor="#0093FB"
           keyboardType="default"
           autoCapitalize="none"

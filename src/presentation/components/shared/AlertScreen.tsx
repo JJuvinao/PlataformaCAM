@@ -17,7 +17,7 @@ const AlertScreen = ({ visible, setVisible, message }: Props) => {
           backgroundColor: "white",
         }}
       >
-        <Dialog.Title>Error</Dialog.Title>
+        <Dialog.Title>Información</Dialog.Title>
         <Dialog.Content>
           <Text>{message}</Text>
         </Dialog.Content>

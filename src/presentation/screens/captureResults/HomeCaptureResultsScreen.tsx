@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, TouchableOpacity, useWindowDimensions } from "react-native";
 import { MainLayout } from "../../layouts/MainLayout";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -7,8 +7,11 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/StackNavigator";
 import { Button } from "react-native-paper";
 import { useExamenStore } from "../../store/useResultsStore";
+import AlertScreen from "../../components/shared/AlertScreen";
 
 export const HomeCaptureResults = () => {
+  const [visible, setVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
   const navigation =
     useNavigation<StackScreenProps<RootStackParamList>["navigation"]>();
   const { width } = useWindowDimensions();
@@ -17,7 +20,10 @@ export const HomeCaptureResults = () => {
   );
 
   const handleDatos = async () => {
-    await guardarDatosEnFirebase();
+    await guardarDatosEnFirebase(() => {
+      setAlertMessage("Resultados guardados con éxito");
+      setVisible(true);
+    });
   };
   return (
     <MainLayout
@@ -134,6 +140,11 @@ export const HomeCaptureResults = () => {
       >
         <Text className="text-xl italic font-bold text-white">Capturar</Text>
       </Button>
+      <AlertScreen
+        visible={visible}
+        setVisible={setVisible}
+        message={alertMessage}
+      />
     </MainLayout>
   );
 };

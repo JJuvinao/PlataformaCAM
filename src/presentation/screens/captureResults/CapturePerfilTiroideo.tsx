@@ -47,9 +47,10 @@ export const CapturePerfilTiroideoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="tsh"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(tsh) => actualizarPerfilTiroideo({ tsh: tsh })}
           value={perfiltiroideo.tsh}
@@ -58,9 +59,10 @@ export const CapturePerfilTiroideoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="t3"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(t3) => actualizarPerfilTiroideo({ t3: t3 })}
           value={perfiltiroideo.t3}
@@ -69,9 +71,10 @@ export const CapturePerfilTiroideoScreen = () => {
         <TextInput
           mode="outlined"
           placeholder="t4 libre"
-          className="mt-2 rounded-full"
+          className="mt-2 bg-white rounded-full"
           outlineColor="#0093FB"
           activeOutlineColor="#0093FB"
+          textColor="#000000"
           keyboardType="numeric"
           onChangeText={(t4Libre) =>
             actualizarPerfilTiroideo({ t4Libre: t4Libre })

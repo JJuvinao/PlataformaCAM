@@ -12,12 +12,12 @@ import {
   useWindowDimensions,
   TouchableOpacity,
 } from "react-native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { logout } from "../../actions/auth.actions";
 import { useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
-import StackNavigator, { RootStackParamList } from "./StackNavigator";
+import { RootStackParamList } from "./StackNavigator";
 import BottonNavigation from "./BottoNavigation";
+import { useAuthStore } from "../store/useAuthStore";
 
 type RootStackParams = {
   DrawerNavigation: undefined;
@@ -84,6 +84,7 @@ function DrawerNavigation() {
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const navigation =
     useNavigation<StackScreenProps<RootStackParamList>["navigation"]>();
+  const user = useAuthStore((state) => state.user);
   return (
     <DrawerContentScrollView {...props}>
       <View className="items-center justify-center h-24 mb-5 rounded-full">
@@ -96,7 +97,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
 
       <View className="items-center mb-5">
         <Text className="text-xl font-bold text-white">
-          {"Michael Rodriguez"}
+          {user?.nombres.split(" ")[0] + " " + user?.apellidos.split(" ")[0]}
         </Text>
         <View className="w-4/5 mt-2 border-b-4 border-white" />
         {/* Línea blanca */}
@@ -122,13 +123,13 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           </View>
         </TouchableOpacity> */}
 
-        <TouchableOpacity onPress={() => {}} className="px-4 py-3 my-2 rounded">
+        {/* <TouchableOpacity onPress={() => {}} className="px-4 py-3 my-2 rounded">
           <View className="flex-row items-center gap-2">
             <Text className="text-base font-bold text-white">
               Presentación CAM
             </Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity
           onPress={() => navigation.navigate("SlidesScreen")}

@@ -20,3 +20,9 @@ export const LoginSchema = Yup.object().shape({
     .required("Contraseña es obligatoria")
     .min(8, "La contraseña debe tener al menos 8 caracteres"),
 });
+
+export const reseetPasswordSchema = Yup.object().shape({
+  correo: Yup.string()
+    .email("Correo inválido")
+    .required("Correo es obligatorio"),
+});

@@ -3,6 +3,10 @@ export type LoginUser = {
   password: string;
 };
 
+export type ResetPassword = {
+  correo: string;
+};
+
 // Definición de tipos para los exámenes
 export interface Hemograma {
   hb?: string;

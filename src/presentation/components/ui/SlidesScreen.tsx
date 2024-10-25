@@ -22,17 +22,12 @@ interface Slide {
 const items: Slide[] = [
   {
     title: "Presentación de CAM",
-    desc: "Tempor sit cupidatat nostrud anim occaecat ea ipsum qui nisi. Est dolor commodo Lorem proident aliquip voluptate duis veniam aliquip fugiat. Cillum ut cillum anim ipsum dolore aute officia dolor minim commodo elit consequat. Est magna anim ut elit laborum enim ex occaecat pariatur deserunt.",
+    desc: "Bienvenido a la plataforma CAM, diseñada para la gestión de registros médicos de tus pacientes. A través de esta herramienta, puedes registrar, visualizar y manejar resultados médicos de manera eficiente, ayudando a un seguimiento adecuado de cada paciente.",
     img: require("../../../../assets/img/Logosimbolo-CAM.png"),
   },
   {
     title: "Instrucciones de Manejo",
-    desc: "Cupidatat eu fugiat in culpa non laboris et excepteur aliquip. Sint nostrud fugiat culpa sit fugiat dolor magna occaecat dolore. Fugiat consequat mollit sunt sunt voluptate adipisicing quis exercitation laborum anim pariatur non laboris nulla.",
-    img: require("../../../../assets/img/Logosimbolo-CAM.png"),
-  },
-  {
-    title: "Otros Temas",
-    desc: "Tempor sit cupidatat nostrud anim occaecat ea ipsum qui nisi. Est dolor commodo Lorem proident aliquip voluptate duis veniam aliquip fugiat. Cillum ut cillum anim ipsum dolore aute officia dolor minim commodo elit consequat. Est magna anim ut elit laborum enim ex occaecat pariatur deserunt.",
+    desc: "Selecciona el tipo de examen que deseas registrar en el menú principal. Los exámenes disponibles incluyen: electrolitos, hemograma, glicemia, presión arterial, coprológico, uroanálisis, perfil tiroideo y perfil lipídico. Ingresa los valores correspondientes para cada prueba, y guarda el examen para visualizar las recomendaciones automáticas según los resultados ingresados. Asegurese de escribir los valores corretos sin errores y asegure de que las palabras no contengan espacios al final",
     img: require("../../../../assets/img/Logosimbolo-CAM.png"),
   },
 ];
@@ -128,7 +123,7 @@ const SlideItem = ({ item }: SlideItemProps) => {
         {title}
       </Text>
 
-      <Text className="mt-5">{desc}</Text>
+      <Text className="mt-5 text-justify">{desc}</Text>
     </View>
   );
 };

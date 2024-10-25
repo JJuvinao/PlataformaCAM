@@ -3,54 +3,38 @@ import { Button, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/AuthNavigator";
-import { login } from "../../../actions/auth.actions";
+import { resetPassword } from "../../../actions/auth.actions";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useMutation } from "@tanstack/react-query";
-import { LoginUser } from "../../../types";
-import { obtenerUsuarioPorId } from "../../../actions/user.action";
-import { useAuthStore } from "../../store/useAuthStore";
+import { ResetPassword } from "../../../types";
 import { Formik } from "formik";
-import { LoginSchema } from "../../../types/schemas/schemas";
+import { reseetPasswordSchema } from "../../../types/schemas/schemas";
 import AlertScreen from "../../components/shared/AlertScreen";
 import { useState } from "react";
 import { AuthLayout } from "../../layouts/AuthLayout";
 
-export const LoginScreen = () => {
+export const ForgotPasswordScreen = () => {
   const [visible, setVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [error, setError] = useState<boolean>(false);
-  const setUsers = useAuthStore((state) => state.setUser);
   const { top } = useSafeAreaInsets();
   const navigation =
     useNavigation<StackScreenProps<RootStackParamList>["navigation"]>();
 
   const mutation = useMutation({
-    mutationKey: ["login"],
-    mutationFn: (values: LoginUser) => login(values.correo, values.password),
+    mutationKey: ["resetPassword"],
+    mutationFn: (values: ResetPassword) => resetPassword(values.correo),
     onError: (error) => {
-      setAlertMessage(error.message || "Error al iniciar sesión");
+      setError(true);
+      setAlertMessage(error.message || "Error al restablecer la contraseña");
       setVisible(true);
     },
-    onSuccess: async (data) => {
-      try {
-        const usuario = await obtenerUsuarioPorId(data!);
-        if (usuario) {
-          setUsers(usuario);
-        } else {
-          setError(true);
-          setAlertMessage("Usuario no encontrado");
-          setVisible(true);
-        }
-      } catch (error: any) {
-        setError(true);
-        setAlertMessage(
-          error.message ||
-            "Credenciales incorrectas. Por favor, verifica tus datos e intenta de nuevo."
-        );
-        setVisible(true);
-      } finally {
-        setError(false);
-      }
+    onSuccess: () => {
+      setError(false);
+      setAlertMessage(
+        "Se ha enviado un correo a su correo con las instrucciones para restablecer su contraseña"
+      );
+      setVisible(true);
     },
   });
 
@@ -59,9 +43,8 @@ export const LoginScreen = () => {
       <Formik
         initialValues={{
           correo: "",
-          password: "",
         }}
-        validationSchema={LoginSchema}
+        validationSchema={reseetPasswordSchema}
         onSubmit={(values) => {
           mutation.mutate(values);
         }}
@@ -94,33 +77,6 @@ export const LoginScreen = () => {
                 <Text className="text-red-500">{errors.correo}</Text>
               )}
 
-              <Text className="mx-2 my-3 mb-2 text-base text-gray-500">
-                Contraseña:{" "}
-              </Text>
-
-              <TextInput
-                mode="flat"
-                underlineStyle={{ display: "none" }}
-                placeholderTextColor="gray"
-                textColor="#000000"
-                secureTextEntry
-                className="bg-white border border-gray-300 rounded-3xl h-11"
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password}
-              />
-              {errors.password && touched.password && (
-                <Text className="text-red-500">{errors.password}</Text>
-              )}
-
-              <View className="flex items-start justify-start ">
-                <Button onPress={() => navigation.navigate("ForgotPassword")}>
-                  <Text className="underline text-textcolor text-start">
-                    ¿Olvidaste tu Contraseña?
-                  </Text>
-                </Button>
-              </View>
-
               <View className="flex items-center justify-center my-6">
                 <Button
                   onPress={handleSubmit as any}
@@ -130,14 +86,11 @@ export const LoginScreen = () => {
                   className="w-1/2 mb-8 bg-colorButton"
                 >
                   <Text className="italic font-bold text-white">
-                    {mutation.isPending ? "Cargando..." : "Iniciar Sesión"}
+                    {mutation.isPending ? "Cargando..." : "Enviar Correo "}
                   </Text>
                 </Button>
-                <Button onPress={() => navigation.navigate("RegisterScreen")}>
-                  <Text className="text-textcolor">
-                    ¿Es tu Primera Vez?{" "}
-                    <Text className="underline">Regístrate</Text>
-                  </Text>
+                <Button onPress={() => navigation.goBack()}>
+                  <Text className="text-textcolor">Volver</Text>
                 </Button>
               </View>
             </View>
