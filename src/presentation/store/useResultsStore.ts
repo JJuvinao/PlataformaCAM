@@ -26,6 +26,7 @@ interface Examen {
 }
 
 interface EstadoExamenes {
+  identificacion: string;
   hemograma: Hemograma;
   presionArterial: PresionArterial;
   glicemia: Glicemia;
@@ -35,6 +36,7 @@ interface EstadoExamenes {
   perfilLipidico: perfilLipidico;
   perfiltiroideo: perfilTiroideo;
 
+  actualizarIdentificacion: (data: string) => void;
   actualizarHemograma: (data: Partial<Hemograma>) => void;
   actualizarPresionArterial: (data: Partial<PresionArterial>) => void;
   actualizarGlicemia: (data: Partial<Glicemia>) => void;
@@ -372,6 +374,7 @@ export const generarRecomendacionesElectrolitos = (
 };
 
 export const useExamenStore = create<EstadoExamenes>((set, get) => ({
+  identificacion: "",
   hemograma: {
     hb: "",
     hematocrito: "",
@@ -437,6 +440,8 @@ export const useExamenStore = create<EstadoExamenes>((set, get) => ({
     cloro: "",
     recomendaciones: "",
   },
+  actualizarIdentificacion: (data) => set({ identificacion: data }),
+
   actualizarHemograma: (data) =>
     set((state) => ({
       hemograma: {
@@ -516,6 +521,7 @@ export const useExamenStore = create<EstadoExamenes>((set, get) => ({
     })),
   guardarDatosEnFirebase: async (onSuccess: any) => {
     const {
+      identificacion,
       hemograma,
       presionArterial,
       glicemia,
@@ -527,6 +533,7 @@ export const useExamenStore = create<EstadoExamenes>((set, get) => ({
     } = get();
 
     const data = {
+      identificacion,
       hemograma,
       presionArterial,
       glicemia,
@@ -542,6 +549,7 @@ export const useExamenStore = create<EstadoExamenes>((set, get) => ({
       const datos = await addDoc(collection(db, "examenes"), data);
       if (datos) {
         set({
+          identificacion: "",
           hemograma: {
             hb: "",
             hematocrito: "",

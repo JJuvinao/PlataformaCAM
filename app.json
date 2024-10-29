@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "plataformaCam",
-    "slug": "plataformaCam",
+    "name": "CAM",
+    "slug": "CAM",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -26,7 +26,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "1377941e-627c-4bd3-a91c-6b9bf5a199b6"
+        "projectId": "d8147740-7b8f-4789-89b0-41a6f75f365b"
       }
     }
   }

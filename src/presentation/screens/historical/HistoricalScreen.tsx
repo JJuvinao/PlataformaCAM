@@ -17,6 +17,7 @@ import { ActivityIndicator } from "react-native-paper";
 
 interface Examen {
   id: string;
+  identificacion: string;
   hemograma: {
     hb: string;
     hematocrito: string;
@@ -62,7 +63,7 @@ const HistorialExamenes = ({ navigation }: Props) => {
         navigation.navigate("DetallesResultScreen", { examen: item })
       }
     >
-      <Text className="text-lg font-bold">Examen {item.id}</Text>
+      <Text className="text-lg font-bold">Cédula: {item.identificacion}</Text>
       <Text className="text-sm text-gray-600">
         Fecha: {new Date(item.fecha.seconds * 1000).toLocaleDateString()}
       </Text>

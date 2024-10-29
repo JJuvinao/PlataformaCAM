@@ -17,6 +17,10 @@ const DetalleExamen = ({ route }: any) => {
         Detalles del Examen
         {/* {examen.id} */}
       </Text>
+      <Text className="mb-2 text-base font-bold">
+        Identificación del Paciente:{" "}
+        <Text className="font-normal">{examen.identificacion}</Text>
+      </Text>
 
       <Text className="mb-2 text-xl italic font-bold text-start text-textcolor">
         Coprologico

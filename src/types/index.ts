@@ -1,3 +1,5 @@
+import { UserRegisro } from "../domain/entities/user";
+
 export type LoginUser = {
   correo: string;
   password: string;
