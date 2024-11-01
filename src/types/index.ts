@@ -1,4 +1,4 @@
-import { UserRegisro } from "../domain/entities/user";
+import { UserRegisro } from "../domain/entities/user.entities";
 
 export type LoginUser = {
   correo: string;

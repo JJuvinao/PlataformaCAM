@@ -59,7 +59,7 @@ export const ForgotPasswordScreen = () => {
         }) => (
           <>
             <View className="flex-1 mx-6" style={{ paddingTop: top + 50 }}>
-              <Text className="mx-2 mb-2 text-base text-gray-500">
+              <Text className="mx-2 mb-2 text-base text-gray-600">
                 Correo:{" "}
               </Text>
               <TextInput

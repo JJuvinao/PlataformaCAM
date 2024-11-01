@@ -15,7 +15,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "../config/firebase/app";
-import { User, UserRegisro } from "../domain/entities/user";
+import { User, UserRegisro } from "../domain/entities/user.entities";
 
 export async function crearUsuario(usuario: UserRegisro): Promise<void> {
   try {

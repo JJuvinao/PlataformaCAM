@@ -17,9 +17,9 @@ const AlertScreen = ({ visible, setVisible, message }: Props) => {
           backgroundColor: "white",
         }}
       >
-        <Dialog.Title>Información</Dialog.Title>
+        <Dialog.Title style={{ color: "#00000" }}>Información</Dialog.Title>
         <Dialog.Content>
-          <Text>{message}</Text>
+          <Text style={{ color: "#00000" }}>{message}</Text>
         </Dialog.Content>
         <Dialog.Actions>
           <Button onPress={() => setVisible(false)}>Cerrar</Button>
