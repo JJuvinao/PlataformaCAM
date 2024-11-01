@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { User } from "../../domain/entities/user";
+import { User } from "../../domain/entities/user.entities";
 
 interface userStore {
   user: User | null;

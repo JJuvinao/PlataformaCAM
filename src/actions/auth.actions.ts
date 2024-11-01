@@ -8,7 +8,7 @@ import {
   User,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { RolUsuario, UserRegisro } from "../domain/entities/user";
+import { RolUsuario, UserRegisro } from "../domain/entities/user.entities";
 import { crearUsuario } from "./user.action";
 import { FirebaseError } from "firebase/app";
 

@@ -9,7 +9,7 @@ import { Picker } from "@react-native-picker/picker";
 import { useMutation } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { registerUser } from "../../../actions/auth.actions";
-import { RolUsuario } from "../../../domain/entities/user";
+import { RolUsuario } from "../../../domain/entities/user.entities";
 import { RegisterSchema } from "../../../types/schemas/schemas";
 import { useState } from "react";
 import AlertScreen from "../../components/shared/AlertScreen";
