@@ -1,4 +1,4 @@
-package com.mdavidrodriguez.plataformaCam
+package com.tuusuario.plataformacam
 
 import android.app.Application
 import android.content.res.Configuration
