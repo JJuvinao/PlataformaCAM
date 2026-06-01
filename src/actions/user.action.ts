@@ -1,26 +1,27 @@
-import {
-  getAuth,
-  deleteUser,
-  createUserWithEmailAndPassword,
-  UserCredential,
-} from "firebase/auth";
-import {
-  collection,
-  DocumentData,
-  doc,
-  setDoc,
-  updateDoc,
-  DocumentSnapshot,
-  CollectionReference,
-  getDoc,
-} from "firebase/firestore";
-import { db } from "../config/firebase/app";
 import { User, UserRegisro } from "../domain/entities/user.entities";
+import { useAuthStore } from "../presentation/store/useAuthStore";
+
+const API_URL = "https://bd-plataforma-cam.onrender.com";
+
+// Función para limpiar token
+const cleanToken = (token: string | null): string => {
+  if (!token) return "";
+  return token.replace(/[^\x00-\x7F]/g, "").trim();
+};
 
 export async function crearUsuario(usuario: UserRegisro): Promise<void> {
   try {
-    const docuRef = doc(db, `usuarios/${usuario.id}`);
-    await setDoc(docuRef, usuario);
+    const response = await fetch(`${API_URL}/usuarios`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(usuario),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al crear usuario");
+    }
   } catch (error) {
     console.error("Error al crear usuario:", error);
     throw error;
@@ -31,66 +32,87 @@ export async function crearUsuarioYAutenticacion(
   usuario: User,
   password: string
 ): Promise<void> {
-  let userCredential: UserCredential | null = null;
   try {
-    const auth = getAuth();
-    userCredential = await createUserWithEmailAndPassword(
-      auth,
-      usuario.correo,
-      password
-    );
+    const usuarioConPassword = { ...usuario, password };
+    const response = await fetch(`${API_URL}/usuarios/registro`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(usuarioConPassword),
+    });
 
-    if (userCredential.user) {
-      const { uid } = userCredential.user;
-      const usuarioConId: User = { ...usuario, id: uid };
-      const docRef = doc(db, "usuarios", uid);
-      await setDoc(docRef, usuarioConId);
+    if (!response.ok) {
+      throw new Error("Error al crear usuario");
     }
   } catch (error) {
-    if (userCredential && userCredential.user) {
-      await userCredential.user.delete();
-    }
-    console.error("Error al crear usuario y autenticación:", error);
+    console.error("Error al crear usuario:", error);
     throw error;
   }
 }
 
-export async function obtenerUsuarioPorId(
-  userId: string | undefined
-): Promise<User | null> {
-  if (!userId) {
-    console.error("El ID del usuario es indefinido");
-    return null;
-  }
-
+export const fetchUsuarioPorDocumento = async (
+  numeroDocumento: string
+): Promise<UserRegisro> => {
   try {
-    const userDocRef = doc(db, "usuarios", userId);
-    const userDocSnap: DocumentSnapshot<DocumentData> = await getDoc(
-      userDocRef
-    );
-    if (userDocSnap.exists()) {
-      return userDocSnap.data() as User;
-    } else {
-      console.error("No se encontró el usuario con el ID:", userId);
-      return null;
+    const token = useAuthStore.getState().accessToken;
+    
+    if (!token) {
+      throw new Error("No hay sesión activa. Por favor, inicie sesión nuevamente.");
     }
+
+    if (!numeroDocumento || numeroDocumento.trim() === "") {
+      throw new Error("El número de documento es requerido");
+    }
+
+    const cleanTokenValue = cleanToken(token);
+    
+    if (!cleanTokenValue) {
+      throw new Error("Token inválido. Por favor, inicie sesión nuevamente.");
+    }
+
+    const response = await fetch(`${API_URL}/usuarios/mi-documento/${numeroDocumento}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${cleanTokenValue}`,
+      },
+    });
+
+    if (!response.ok) {
+      let errorMessage = `Error ${response.status}: ${response.statusText}`;
+      try {
+        const errorData = await response.json();
+        errorMessage = errorData.detail || errorMessage;
+      } catch (e) {
+        // Si no se puede parsear, usar mensaje por defecto
+      }
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.error("Error al obtener usuario por ID:", error);
+    console.error("Error en fetchUsuarioPorDocumento:", error);
     throw error;
   }
-}
+};
 
 export async function actualizarUsuario(
   userId: string,
   newData: Partial<User>
 ): Promise<void> {
   try {
-    const userDocRef = doc(db, "usuarios", userId);
-    const userDocSnap = await getDoc(userDocRef);
-    if (userDocSnap.exists()) {
-      await updateDoc(userDocRef, newData);
-    } else {
-      console.error("No se encontró el usuario con el ID:", userId);
+    const response = await fetch(`${API_URL}/usuarios/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newData),
+    });
+
+    if (!response.ok) {
       throw new Error("Usuario no encontrado");
     }
   } catch (error) {

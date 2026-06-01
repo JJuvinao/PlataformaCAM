@@ -15,7 +15,6 @@ export const CaptureCoprologicoScreen = () => {
   const { width } = useWindowDimensions();
   const navigation =
     useNavigation<StackScreenProps<RootStackParamList>["navigation"]>();
-  // const { actualizarCoprologico, coprologico } = useExamenStore();
   const actualizarCoprologico = useExamenStore(
     (state) => state.actualizarCoprologico
   );
@@ -33,7 +32,6 @@ export const CaptureCoprologicoScreen = () => {
     coprologico.leucocitos,
     coprologico.eritrocitos,
     coprologico.grasaFecal,
-    coprologico.recomendaciones,
   ]);
 
   return (
@@ -44,30 +42,31 @@ export const CaptureCoprologicoScreen = () => {
         paddingHorizontal: width * 0.05,
       }}
     >
-      <Text className="text-xl italic font-bold text-textcolor">
+      <Text className="text-xl italic font-bold text-textcolor mb-3">
         Coprológico
       </Text>
-      <View className="w-full p-4 my-2 mb-5 bg-white rounded-3xl">
-        <Text className="text-base text-gray-600">Color Heces</Text>
+      <View className="w-full p-3 bg-white rounded-3xl">
+        <Text className="text-sm font-semibold text-gray-700 mb-1">Color Heces</Text>
         <TextInput
           mode="outlined"
-          placeholder="color heces ej: marrón"
-          className="mt-2 bg-white rounded-full"
+          placeholder="marrón"
+          dense
+          className="mb-3 bg-white rounded-lg"
           outlineColor="#0093FB"
           textColor="#000000"
           activeOutlineColor="#0093FB"
-          //  className="bg-white rounded-3xl h-11"
-
           keyboardType="default"
           autoCapitalize="none"
           onChangeText={(color) => actualizarCoprologico({ colorHeces: color })}
           value={coprologico.colorHeces}
         />
-        <Text className="my-2 text-base text-gray-600">Consistencia</Text>
+
+        <Text className="text-sm font-semibold text-gray-700 mb-1">Consistencia</Text>
         <TextInput
           mode="outlined"
-          placeholder="consistencia ej: normal"
-          className="mt-2 bg-white rounded-full"
+          placeholder="normal"
+          dense
+          className="mb-3 bg-white rounded-lg"
           outlineColor="#0093FB"
           textColor="#000000"
           activeOutlineColor="#0093FB"
@@ -79,11 +78,12 @@ export const CaptureCoprologicoScreen = () => {
           value={coprologico.consistencia}
         />
 
-        <Text className="my-2 text-base text-gray-600">PH</Text>
+        <Text className="text-sm font-semibold text-gray-700 mb-1">PH</Text>
         <TextInput
           mode="outlined"
-          placeholder="ph fecal ej: 1"
-          className="mt-2 bg-white rounded-full"
+          placeholder="1"
+          dense
+          className="mb-3 bg-white rounded-lg"
           outlineColor="#0093FB"
           textColor="#000000"
           activeOutlineColor="#0093FB"
@@ -91,13 +91,15 @@ export const CaptureCoprologicoScreen = () => {
           onChangeText={(ph) => actualizarCoprologico({ ph: ph })}
           value={coprologico.ph}
         />
-        <Text className="my-2 text-base text-gray-600">
+
+        <Text className="text-sm font-semibold text-gray-700 mb-1">
           Sangre Oculta (positivo - negativo)
         </Text>
         <TextInput
           mode="outlined"
-          placeholder="sangre oculta ej: positivo"
-          className="mt-2 bg-white rounded-full"
+          placeholder="positivo"
+          dense
+          className="mb-3 bg-white rounded-lg"
           outlineColor="#0093FB"
           textColor="#000000"
           activeOutlineColor="#0093FB"
@@ -108,13 +110,15 @@ export const CaptureCoprologicoScreen = () => {
           }
           value={coprologico.sangreOculta}
         />
-        <Text className="my-2 text-base text-gray-600">
-          Huevos y parasitos en las heces (positivo - negativo)
+
+        <Text className="text-sm font-semibold text-gray-700 mb-1">
+          Huevos y parásitos (positivo - negativo)
         </Text>
         <TextInput
           mode="outlined"
-          placeholder="parasitos ej: negativo"
-          className="mt-2 bg-white rounded-full"
+          placeholder="negativo"
+          dense
+          className="mb-3 bg-white rounded-lg"
           outlineColor="#0093FB"
           textColor="#000000"
           activeOutlineColor="#0093FB"
@@ -125,11 +129,13 @@ export const CaptureCoprologicoScreen = () => {
           }
           value={coprologico.parasitos}
         />
-        <Text className="my-2 text-base text-gray-600">Leucocitos</Text>
+
+        <Text className="text-sm font-semibold text-gray-700 mb-1">Leucocitos</Text>
         <TextInput
           mode="outlined"
-          placeholder="valor ej: 1"
-          className="mt-2 bg-white rounded-full"
+          placeholder="1"
+          dense
+          className="mb-3 bg-white rounded-lg"
           outlineColor="#0093FB"
           textColor="#000000"
           activeOutlineColor="#0093FB"
@@ -139,11 +145,13 @@ export const CaptureCoprologicoScreen = () => {
           }
           value={coprologico.leucocitos}
         />
-        <Text className="my-2 text-base text-gray-600">Eritrocitos</Text>
+
+        <Text className="text-sm font-semibold text-gray-700 mb-1">Eritrocitos</Text>
         <TextInput
           mode="outlined"
-          placeholder="valor ej: 1"
-          className="mt-2 bg-white rounded-full"
+          placeholder="1"
+          dense
+          className="mb-3 bg-white rounded-lg"
           outlineColor="#0093FB"
           textColor="#000000"
           activeOutlineColor="#0093FB"
@@ -153,13 +161,15 @@ export const CaptureCoprologicoScreen = () => {
           }
           value={coprologico.eritrocitos}
         />
-        <Text className="my-2 text-base text-gray-600">
+
+        <Text className="text-sm font-semibold text-gray-700 mb-1">
           Grasa Fecal (positiva - negativa)
         </Text>
         <TextInput
           mode="outlined"
-          placeholder="grasa ej: positiva "
-          className="mt-2 bg-white rounded-full"
+          placeholder="positiva"
+          dense
+          className="bg-white rounded-lg"
           outlineColor="#0093FB"
           textColor="#000000"
           activeOutlineColor="#0093FB"
@@ -171,18 +181,13 @@ export const CaptureCoprologicoScreen = () => {
           value={coprologico.grasaFecal}
         />
       </View>
-      <CustomButton
-        title="Siguiente"
-        onPress={() => navigation.navigate("ResultsCoprologico")}
-      />
-      {/* <View className="w-full p-4 mb-20 bg-white rounded-3xl">
-        <Text className="my-2 text-2xl font-bold text-center text-textcolor">
-          Sugerencias
-        </Text>
-        <View className="flex flex-row p-3 text-justify bg-white border border-gray-400 rounded-3xl">
-          <Text>{coprologico.recomendaciones}</Text>
-        </View>
-      </View> */}
+
+      <View className="w-full mt-4 mb-6">
+        <CustomButton
+          title="Siguiente"
+          onPress={() => navigation.navigate("ResultsCoprologico")}
+        />
+      </View>
     </MainLayout>
   );
 };

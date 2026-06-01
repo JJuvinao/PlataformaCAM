@@ -18,26 +18,39 @@ export const HomeCaptureResults = () => {
   const [visible, setVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  
   const actualizarIdentificacion = useExamenStore(
-    (state) => state.actualizarIdentificacion
+    (state: { actualizarIdentificacion: any; }) => state.actualizarIdentificacion
   );
-  const identificacion = useExamenStore((state) => state.identificacion);
+  const identificacion = useExamenStore((state: { identificacion: any; }) => state.identificacion);
+  // ✅ CAMBIAR EL NOMBRE DE LA FUNCIÓN - Ahora se llama guardarExamen
+  const guardarExamen = useExamenStore((state: { guardarExamen: any; }) => state.guardarExamen);
+  
   const navigation =
     useNavigation<StackScreenProps<RootStackParamList>["navigation"]>();
   const { width } = useWindowDimensions();
-  const guardarDatosEnFirebase = useExamenStore(
-    (state) => state.guardarDatosEnFirebase
-  );
-
-  console.log(identificacion);
+  
   const handleDatos = async () => {
-    setLoading(true);
-    await guardarDatosEnFirebase(() => {
-      setAlertMessage("Resultados guardados con éxito");
+    if (!identificacion || identificacion.trim() === "") {
+      setAlertMessage("Por favor, ingrese la identificación del paciente");
       setVisible(true);
-    });
-    setLoading(false);
+      return;
+    }
+    
+    setLoading(true);
+    try {
+      // ✅ LLAMAR A LA FUNCIÓN CORRECTA
+      const resultado = await guardarExamen();
+      setAlertMessage(`Examen guardado con éxito. ID: ${resultado.id}`);
+      setVisible(true);
+    } catch (error: any) {
+      setAlertMessage(error.message || "Error al guardar el examen");
+      setVisible(true);
+    } finally {
+      setLoading(false);
+    }
   };
+  
   return (
     <MainLayout
       style={{
@@ -62,6 +75,7 @@ export const HomeCaptureResults = () => {
           value={identificacion}
         />
       </View>
+      
       <Text className="mb-2 text-center text-gray-600">Electrolitos</Text>
       <TouchableOpacity
         className="w-full p-4 mb-5 bg-white rounded-3xl"
@@ -87,6 +101,7 @@ export const HomeCaptureResults = () => {
           style={{ textAlign: "right" }}
         />
       </TouchableOpacity>
+      
       <Text className="mb-2 text-center text-gray-600">Glicemia</Text>
       <TouchableOpacity
         className="w-full p-4 mb-5 bg-white rounded-3xl"
@@ -138,6 +153,7 @@ export const HomeCaptureResults = () => {
           style={{ textAlign: "right" }}
         />
       </TouchableOpacity>
+      
       <Text className="mb-2 text-center text-gray-600">Perfil Tiroideo</Text>
       <TouchableOpacity
         className="w-full p-4 mb-5 bg-white rounded-3xl"
@@ -150,6 +166,7 @@ export const HomeCaptureResults = () => {
           style={{ textAlign: "right" }}
         />
       </TouchableOpacity>
+      
       <Text className="mb-2 text-center text-gray-600">Perfil Lipídico</Text>
       <TouchableOpacity
         className="w-full p-4 mb-5 bg-white rounded-3xl"
@@ -162,14 +179,18 @@ export const HomeCaptureResults = () => {
           style={{ textAlign: "right" }}
         />
       </TouchableOpacity>
+      
       <Button
         mode="contained-tonal"
         disabled={loading}
         className="w-full mb-24 bg-colorButton rounded-3xl"
         onPress={handleDatos}
       >
-        <Text className="text-xl italic font-bold text-white">Capturar</Text>
+        <Text className="text-xl italic font-bold text-white">
+          {loading ? "Guardando..." : "Capturar"}
+        </Text>
       </Button>
+      
       <AlertScreen
         visible={visible}
         setVisible={setVisible}

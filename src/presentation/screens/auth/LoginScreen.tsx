@@ -6,8 +6,6 @@ import { RootStackParamList } from "../../navigation/AuthNavigator";
 import { login } from "../../../actions/auth.actions";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useMutation } from "@tanstack/react-query";
-import { LoginUser } from "../../../types";
-import { obtenerUsuarioPorId } from "../../../actions/user.action";
 import { useAuthStore } from "../../store/useAuthStore";
 import { Formik } from "formik";
 import { LoginSchema } from "../../../types/schemas/schemas";
@@ -20,32 +18,43 @@ export const LoginScreen = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [error, setError] = useState<boolean>(false);
   const setUsers = useAuthStore((state) => state.setUser);
+  const setAccessToken = useAuthStore((state) => state.setAccessToken);
   const { top } = useSafeAreaInsets();
   const navigation =
     useNavigation<StackScreenProps<RootStackParamList>["navigation"]>();
 
   const mutation = useMutation({
     mutationKey: ["login"],
-    mutationFn: (values: LoginUser) => login(values.correo, values.password),
+    mutationFn: async (values: any) => {
+      console.log("Intentando login con:", values);
+      const result = await login(values.correo, values.password);
+      console.log("Respuesta de login:", result);
+      return result;
+    },
     onError: (error) => {
+      console.log("Error en login:", error);
       setAlertMessage(error.message || "Error al iniciar sesión");
       setVisible(true);
     },
-    onSuccess: async (data) => {
+    onSuccess: (data) => {
+      console.log("Login exitoso, datos:", data);
       try {
-        const usuario = await obtenerUsuarioPorId(data!);
-        if (usuario) {
-          setUsers(usuario);
+        if (data && data.usuario) {
+          console.log("Guardando usuario:", data.usuario);
+          setUsers(data.usuario);
+          setAccessToken(data.access_token);
         } else {
+          console.log("Datos de usuario no disponibles:", data);
           setError(true);
-          setAlertMessage("Usuario no encontrado");
+          setAlertMessage("Datos de usuario no disponibles");
           setVisible(true);
         }
       } catch (error: any) {
+        console.log("Error en onSuccess:", error);
         setError(true);
         setAlertMessage(
           error.message ||
-            "Credenciales incorrectas. Por favor, verifica tus datos e intenta de nuevo."
+            "Error al procesar login"
         );
         setVisible(true);
       } finally {

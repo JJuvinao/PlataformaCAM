@@ -28,6 +28,9 @@ const Drawer = createDrawerNavigator<RootStackParams>();
 
 const handleLogout = async () => {
   await logout().then(() => {
+    const { setUser, setAccessToken } = useAuthStore.getState();
+    setUser(null);
+    setAccessToken(null);
     console.log("Sesion cerrada");
   });
 };
