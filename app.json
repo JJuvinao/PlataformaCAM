@@ -1,34 +1,36 @@
 {
   "expo": {
-    "name": "CAM",
-    "slug": "CAM",
+    "name": "Plataforma CAM",
+    "slug": "plataforma-cam",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "cover",
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mdavidrodriguez.plataformaCam"
+      "package": "com.tuusuario.plataformacam"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "c0e36bae-70a1-4f6f-ae8e-3cdd4dc33a2d"
+        "projectId": "0250d263-d615-4e69-b14d-1d299144182b"
       }
-    },
-    "owner": "jjuvinao"
+    }
   }
 }
